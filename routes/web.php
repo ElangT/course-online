@@ -28,15 +28,19 @@ Route::get('/snaptoken', 'SnapController@token')->middleware('ajax');
 
 Route::post('/payment/notification', 'NotificationController@notify');
 
+Route::get('/emailtest', 'NotificationController@test');
+
 Route::post('/payment/finish', 'SnapController@finish');
 
 Route::post('/payment/unfinish', 'SnapController@unfinish');
 
 Route::post('/payment/error', 'SnapController@error');
 
-Route::get('/addtocart', 'SnapController@addtocart');
+Route::post('/addtocart', 'SnapController@addtocart');
 
 Route::get('/snapreset', 'SnapController@reset');
+
+Route::get('/course', 'CourseController@studentcourse')->middleware('auth');
 
 Route::group(array('prefix' => 'provider'), function(){
 

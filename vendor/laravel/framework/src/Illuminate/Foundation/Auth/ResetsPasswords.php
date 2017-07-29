@@ -63,8 +63,8 @@ trait ResetsPasswords
     {
         return [
             'token' => 'required',
-            'ak_user_email' => 'required|ak_user_email',
-            'ak_user_password' => 'required|confirmed|min:6',
+            'email' => 'required|email',
+            'password' => 'required|confirmed|min:6',
         ];
     }
 

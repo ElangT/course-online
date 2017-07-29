@@ -1,20 +1,18 @@
 <?php
 //Klikpay bermasalah
 namespace App\Http\Controllers;
+use Response; 
+use Session;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use Illuminate\Support\Facades\Auth;
-
 use App\Veritrans\Midtrans;
-
 use App\ProviderImg;
 use App\Course;
 use App\CourseSchedule;
 use App\CourseDetail;
 use App\Customer;
-
 class SnapController extends Controller
 {
     public function __construct ()
@@ -22,43 +20,64 @@ class SnapController extends Controller
         Midtrans::$serverKey = 'VT-server-2VeBbUOXLfMXxH04FznIt83J';
         Midtrans::$isProduction = false;
         $this->middleware('auth');
+        // dd(Session::all());
     }
 
     public function snap ()
     {
-        $order_id = session('orders', []);
+        // Session::flush();
+        // dd(Session::all());
+        // $populate = function ($id) {
+        //     $course = Course::find($id);
+        //     $course->detail = CourseDetail::where('ak_course_id', $course->ak_course_id)->first();
+        //     $course->image = ProviderImg::where('ak_provider_id', $course->ak_course_prov_id)->first();
+        //     return $course;
+        // };
         $populate = function ($id) {
-            $course = Course::find($id);
-            $course->detail = CourseDetail::where('ak_course_id', $course->ak_course_id)->first();
+            $schedule = CourseSchedule::find($id);
+            $coursedetail = CourseDetail::find($schedule->ak_course_schedule_detid);
+            $course = Course::find($coursedetail->ak_course_id);
             $course->image = ProviderImg::where('ak_provider_id', $course->ak_course_prov_id)->first();
+            $course->detail = $coursedetail;
+            $course->schedule = $schedule;
             return $course;
         };
-
-        $cart = array_map($populate, $order_id);
+        $schedule_ids = Session::get('schedule');
+        $cart = array_map($populate, $schedule_ids);
+        $total = 0;
+        foreach ($cart as $key) {
+            $total += $key->detail->ak_course_detail_price;
+        }
+        Session::put('total', $total);
         return view('snap_checkout')->with('cart', $cart);
     }
 
     public function addtocart (Request $request) {
-        $orders = session('orders', []);
-        $total = session('total', 0);
-        $course_id = $request->course_id;
+        // $orders = session('orders', []);
+        // $total = session('total', 0);
+        // $course_id = $request->course_id;
 
-        if(!in_array($course_id, $orders)){
-            array_push($orders, $course_id);
+        // if(!in_array($course_id, $orders)){
+        //     array_push($orders, $course_id);
 
-            $course = Course::find($course_id);
-            $detail = CourseDetail::where('ak_course_id', $course_id)->first();
-            $total += $detail->ak_course_detail_price;
+        //     $course = Course::find($course_id);
+        //     $detail = CourseDetail::where('ak_course_id', $course_id)->first();
+        //     $total += $detail->ak_course_detail_price;
 
-            session([
-                'orders'   => $orders,
-                'total'    => $total
-            ]);
+        //     session([
+        //         'orders'   => $orders,
+        //         'total'    => $total
+        //     ]);
 
-            return 'true';
+        if(!(Session::has('orders')))
+        {
+            Session::put('orders', [$request->course_id]);
+            Session::put('schedule', [$request->schedule_id]);
+        } else {
+            Session::push('orders', $request->course_id);
+            Session::push('schedule', $request->schedule_id);
         }
-
-        return 'false';
+        return ($request->course_id);
     }
 
     public function removefromcart (Request $request) {
@@ -66,12 +85,14 @@ class SnapController extends Controller
     }
 
     public function reset () {
-        session([
-            'orders'   => [],
-            'total'    => 0
-        ]);
-
-        return redirect('/checkout');
+        // session([
+        //     'orders'   => [],
+        //     'total'    => 0
+        // ]);
+        Session::put('orders', []);
+        Session::put('schedule', []);
+        Session::put('total', 0);
+        return back();
     }
 
     public function token ()
@@ -86,6 +107,7 @@ class SnapController extends Controller
         
         // Populate items
         $order_id = session('orders', []);
+        $schedule = session('schedule', []);
         $populate = function ($id) {
             $course = Course::find($id);
             $detail = CourseDetail::where('ak_course_id', $course->ak_course_id)->first();
@@ -123,6 +145,7 @@ class SnapController extends Controller
             $midtrans = new Midtrans();
 
             session([
+                'saveschedule' =>session('schedule', []),
                 'saveorder'    => session('orders', []),
                 'saveuser'     => Auth::user()->ak_user_id
             ]);
@@ -158,18 +181,28 @@ class SnapController extends Controller
                 $transaction_status = 0;
                 break;
         }
-
-        $orders = session('saveorder', []);
-        $user = session('saveuser', 0);
-        foreach($orders as $order){
-            $data = new \stdClass();
-            $data->transaction_status = $transaction_status;
-            $data->user_id = $user;
-            $data->courses = $order;
-            $data->payment_type = $result->payment_type;
-            $data->transaction_id = $result->transaction_id;
-            TransactionController::save($data);
-        }
+            $schedule = session('saveschedule', []);
+            $user = session('saveuser', 0);
+            foreach($schedule as $order){
+                $course = CourseSchedule::find($order);
+                $course = CourseDetail::find($course->ak_course_schedule_detid);
+                if($transaction_status == 1){
+                    if($course->ak_course_detail_seat <= 0){
+                        $transaction_status = 4;
+                    } else {
+                        $course->ak_course_detail_seat = $course->ak_course_detail_seat - 1;
+                        $course->save();
+                    }
+                }
+                $data = new \stdClass();
+                $data->transaction_status = $transaction_status;
+                $data->schedule = $order;
+                $data->user_id = $user;
+                $data->courses = $course->ak_course_id;
+                $data->payment_type = $result->payment_type;
+                $data->transaction_id = $result->transaction_id;
+                TransactionController::save($data);
+            }
         $this->reset();
 
         return $result;

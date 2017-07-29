@@ -6,9 +6,33 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Transaction;
 use App\CourseDetail;
+use App\Provider;
+use App\User;
+use App\Course;
+use Illuminate\Auth\Events\Registered;
+use App\Jobs\SendExcessStudentEmail;
+
 class NotificationController extends Controller
 {
+  public function test()
+  {
+    $provider = "sayaelang@gmail.com";
+    $user =  User::first();
+    $course = CourseDetail::first();
+    $this->sendEmail($provider, $user, $course);
+  }
+  public function sendEmail($provider, $user, $course)
+  {
+    $num = Transaction::where('ak_tran_saction_course',$course->ak_course_id)
+      ->where('ak_tran_saction_status',4)
+      ->count();
+    $content = new \stdClass;
+    $content->course = $course->ak_course_detail_name;
+    $content->user = $user->ak_user_firstname . " " .$user->ak_user_lastname;
+    $content->num = $num;
+    dispatch(new SendExcessStudentEmail($content, $provider));
 
+  }
 	public function notify(Request $request)
     {
         $result = file_get_contents('php://input');
@@ -32,12 +56,22 @@ class NotificationController extends Controller
                 $result->transaction_status = 0;
                 break;
         }
+
         if($transaction_status === 1){
             $tran = Transaction::where('ak_tran_saction_midtrans_id' , '=', $result->transaction_id)->get();
+            $provider = Course::find($tran[0]->ak_tran_saction_course);
+            $provider = Provider::find($provider->ak_course_prov_id);
+            $provider = $provider->ak_provider_email;
             foreach($tran as $i){
               $course = CourseDetail::where('ak_course_id', '=', $i->ak_tran_saction_user)->first();
               if($course->ak_course_detail_seat > 0){
                 $course->ak_course_detail_seat = $course->ak_course_detail_seat - 1;
+              } else {
+                $temp = Transaction::find($i->ak_tran_saction_id);
+                $temp->ak_tran_saction_status = 4;
+                $temp->save();
+                $user = User::find($i->ak_tran_saction_user);
+                $this->sendEmail($provider, $user, $course);
               }
               $course->save();
             }
@@ -45,7 +79,6 @@ class NotificationController extends Controller
 
         Transaction::where('ak_tran_saction_midtrans_id', '=', $result->transaction_id)
                   ->update(['ak_tran_saction_status' => $result->transaction_status]);
-
         // $name = "notification ".date("d M Y / H:m:s");
         // $maincat = new MainCategory();
         // $maincat->ak_maincat_name = $name;

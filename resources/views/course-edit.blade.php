@@ -85,7 +85,7 @@
                                 <input class="form-control" required name="day1" id="day1" type="text" value="{{$i->ak_course_schedule_day}}">
                             </div>
                             <div class="col-md-5">
-                                <input class="form-control" required name="time1" id="time1" type="time" value="{{$i->ak_course_schedule_time}}">
+                                <input class="form-control" required name="time1" id="time1" type="text" value="{{$i->ak_course_schedule_time}}">
                             </div>
                             <div class="col-md-2">
                                 {{-- <input type="button" class="btndelete" id="btn1" value="x"> --}}

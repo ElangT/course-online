@@ -1,11 +1,15 @@
 $(".addToCart").click(function(e){
     e.preventDefault();
+    console.log(parseInt($('select[name=schedule]').val()));
         $.ajax({
             url: url + '/addtocart',
-            type: 'GET',
-            data: { 'course_id' : parseInt($('input[name=courseid]').val()) },
+            type: 'POST',
+            data: { "_token" : $('input[name=_token]').val(),
+                    'course_id' : parseInt(course_id),
+                    'schedule_id' : parseInt($('select[name=schedule]').val())},
             success: function(data) {
             console.log(data);
+            $('.addToCartForm').hide();
 			$('#cartadded').show();
             }
         });  
@@ -68,7 +72,7 @@ $("#addschedule").click(function(e){
                         <input class='form-control' required name='day"+num+"' id='day"+num+"' type='text' placeholder='Hari'>\
                     </div>\
                     <div class='col-md-5'>\
-                        <input class='form-control' required name='time"+num+"' id='time"+num+"' type='time' placeholder='Waktu'>\
+                        <input class='form-control' required name='time"+num+"' id='time"+num+"' type='text' placeholder='Waktu'>\
                     </div>\
                     <div class='col-md-2'>\
                         <input type='button' class='btndelete' id='btn"+num+"' value='x'>\

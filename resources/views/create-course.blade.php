@@ -64,7 +64,7 @@
                         <input class="form-control" required name="day1" id="day1" type="text" placeholder="Hari">
                     </div>
                     <div class="col-md-5">
-                        <input class="form-control" required name="time1" id="time1" type="time" placeholder="Waktu">
+                        <input class="form-control" required name="time1" id="time1" type="text" placeholder="Waktu">
                     </div>
                     <div class="col-md-2">
                         {{-- <input type="button" class="btndelete" id="btn1" value="x"> --}}

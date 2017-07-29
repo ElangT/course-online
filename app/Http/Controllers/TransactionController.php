@@ -94,6 +94,7 @@ class TransactionController extends Controller
         $transaction->ak_tran_saction_status   = $data->transaction_status;
         $transaction->ak_tran_saction_user     = $data->user_id;
         $transaction->ak_tran_saction_course   = $data->courses;
+        $transaction->ak_tran_saction_schedule = $data->schedule;
         $transaction->ak_tran_saction_midtrans_id  = $data->transaction_id;
 
         $transaction->save();

@@ -14,6 +14,7 @@ use App\Region;
 use App\MainCategory;
 use App\SubCategory;
 use App\Transaction;
+use Session;
 use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
@@ -31,7 +32,35 @@ class CourseController extends Controller
         }
         return view('course')->with('courses', $courses);
     }
+    public function studentcourse()
+    {
+        $query = DB::table('ak_course')
+                    // ->join('ak_user')
+                    ->join('ak_course_detail', 'ak_course.ak_course_id', '=', 'ak_course_detail.ak_course_id')
+                    ->join('ak_tran_saction', 'ak_tran_saction_course', '=', 'ak_course.ak_course_id')
+                    ->join('ak_course_level', 'ak_course_detail.ak_course_detail_level', '=', 'ak_course_level.ak_course_level_id')
+                    ->join('ak_course_age', 'ak_course_detail.ak_course_detail_age', '=', 'ak_course_age.ak_course_age_id')
+                    ->join('ak_sub_category', 'ak_course.ak_course_cat_id', '=', 'ak_sub_category.ak_subcat_id')
+                    ->join('ak_main_category', 'ak_main_category.ak_maincat_id', '=', 'ak_sub_category.ak_subcat_parent')
+                    ->join('ak_provider', 'ak_provider.ak_provider_id', '=', 'ak_course.ak_course_prov_id')
+                    ->select('ak_course.*','ak_course.ak_course_prov_id','ak_course_detail.*','ak_main_category.ak_maincat_id', 'ak_course_level.ak_course_level_name', 'ak_sub_category.ak_subcat_name', 'ak_course_age.ak_course_age_name_id')
+                    ->where('ak_tran_saction.ak_tran_saction_user', '=', Auth::guard()->user()->ak_user_id);
+                    // ->where('ak_user.ak_user_id' ,'=', Auth::guard('auth')->user()->ak_user_id);
+        $courses = $query->get();
+        $query = DB:: table('ak_provider_img')
+                    ->where('ak_provider_id' , '=', Auth::id());
 
+        $img = $query->first();
+        foreach ($courses as $key) {
+            $query = DB::table('ak_course_schedule')
+                        ->select('ak_course_schedule_day', 'ak_course_schedule_time')
+                        ->where('ak_course_schedule_detid', '=', $key->ak_course_detail_id);
+            $key->schedule = $query->get();
+        }
+        return view('course-student')
+            ->with('courses', $courses)
+            ->with('image', $img->ak_provider_img_path);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -68,8 +97,25 @@ class CourseController extends Controller
                     ->select('ak_user_firstname','ak_user_lastname','ak_user_email','ak_user_phone', 'ak_tran_saction_type', 'ak_tran_saction_status', 'ak_tran_saction_id', 'ak_tran_status_name')
                     ->where('ak_tran_saction_course', '=', $courses->ak_course_id);
         $user = $query->get();
+        $course = new \stdClass();
+        $course->success = [];
+        $course->excess = [];
+        $course->error = [];
+        $course->pending = [];
+        foreach($user as $i){
+            if($i->ak_tran_saction_status == 1){
+               array_push($course->success, $i);
+            } elseif($i->ak_tran_saction_status == 2) {
+               array_push($course->pending, $i);
+            } elseif($i->ak_tran_saction_status == 3) {
+               array_push($course->error, $i);
+            } else {
+               array_push($course->excess, $i);
+            }
+        }
+        // dd($course->success);
         return view('manage', [
-            'user' => $user,
+            'course' => $course,
         ]);
     }
 
@@ -147,10 +193,11 @@ class CourseController extends Controller
     {
         $course = Course::find($id);
         if(!$course)
-            return redirect('/courses');
+            return redirect('/');
 
         $detail     = CourseDetail::where('ak_course_detail_id', $course->ak_course_id)->first();
         $schedules  = CourseSchedule::where('ak_course_schedule_detid', $detail->ak_course_detail_id)->get();
+        // dd($schedules);
         $facilities = Facility::where('ak_course_facility_detid', $detail->ak_course_detail_id)->get();
         $query = DB::table('ak_course')
                     ->join('ak_provider', 'ak_provider.ak_provider_id', '=', 'ak_course.ak_course_prov_id')
@@ -162,14 +209,21 @@ class CourseController extends Controller
         $tran = Transaction::where('ak_tran_saction_user', '=', Auth::id())
                             ->where('ak_tran_saction_course', '=', $id)
                             ->first();
+        $bought = ($tran !== null && $tran->ak_tran_saction_status === 1);
+        $trolled = false;
+        if(Session::has('orders') && in_array($detail->ak_course_detail_id,  Session::get('orders'))){
+            $trolled = true;
+        }
+        // dd($trolled);
         return view('course_detail', [
-
             'course' => $course,
             'result' => $result,
             'detail' => $detail,
             'schedules' => $schedules,
             'facilities' => $facilities,
             'transaction' => $tran,
+            'trolled' => $trolled,
+            'bought' => $bought,
         ]);
     }
 
@@ -240,7 +294,6 @@ class CourseController extends Controller
         $course =Course::find($id);
         $course->ak_course_name = $request->name ;
         $course->ak_course_cat_id = $request->subcat;
-        $course->ak_course_open = $request->open;
         $course->save();   
         $detail = CourseDetail::where('ak_course_id', '=', $course->ak_course_id)->first();
         $detail->ak_course_detail_name = $request->name . " detail";
@@ -251,7 +304,6 @@ class CourseController extends Controller
         $detail->ak_course_detail_seat = $request->seat;
         $detail->ak_course_detail_desc = $request->description;
         $detail->save();
-        dd($request->jmlschedule);
         for ($i=1; $i <= $request->jmlschedule; $i++) { 
             if(!is_null(request("day".$i)) && !is_null(request("time".$i))){
                 $schedules = new CourseSchedule;

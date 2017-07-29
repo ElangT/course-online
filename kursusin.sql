@@ -266,10 +266,10 @@ CREATE TABLE `ak_provider` (
 --
 
 INSERT INTO `ak_provider` (`ak_provider_id`, `ak_provider_firstname`, `ak_provider_lastname`, `ak_provider_email`, `ak_provider_password`, `ak_provider_region`, `ak_provider_address`, `ak_provider_zipcode`, `ak_provider_description`, `ak_provider_telephone`, `ak_provider_last_activity`, `remember_token`) VALUES
-(1, 'FFE', '(First For English)', 'fe@co.id', 'admin', 3171, 'Pejaten Village Mall\r\nLt3. Kav 31', 15432, 'FFE is the leading English provider, with WORLD CLASS teacher ready to meet you. ', '(021)897767', '0000-00-00 00:00:00', NULL),
-(2, 'my', 'provider', 'asd@asd.asd', 'asdasd', 1101, 'mwahahahaha', 12323, 'mwahahahaha', '1234567890', '2017-04-12 00:00:00', NULL),
-(3, 'your', 'unprovider', 'aaa@aaa.aaa', 'aaaaaa', 1102, 'kwihihihihihi', 18283, 'kwihihihihihi', '987654321', '2017-04-02 00:00:00', NULL),
-(4, 'Elang', 'Saya', 'elang.nobird@gmail.com', '$2y$10$YZ.A8PeJ1FKa1xAVLG7FJ.TCKZ6YRrtkj08lqrJywBFxUZvy9iAGe', 3101, 'Gang Nyamuk No 58', 16412, 'king', '081297451092', '2017-06-30 19:19:54', '20VmzVJElknIIGje3ED5EbU6lMx4sku7TCggfNWcXZrOvbfQqKKTIf6TqPSu');
+(1, 'FFE', '(First For English)', 'fe@co.id', '$2y$10$DWKp0elJzVC6838ew8hgtOgWkBbOOkPWULRqR4eEcVnOsnGMdywMS', 3171, 'Pejaten Village Mall\r\nLt3. Kav 31', 15432, 'FFE is the leading English provider, with WORLD CLASS teacher ready to meet you. ', '(021)897767', '0000-00-00 00:00:00', NULL),
+(2, 'my', 'provider', 'asd@asd.asd', '$2y$10$DWKp0elJzVC6838ew8hgtOgWkBbOOkPWULRqR4eEcVnOsnGMdywMS', 1101, 'mwahahahaha', 12323, 'mwahahahaha', '1234567890', '2017-04-12 00:00:00', NULL),
+(3, 'your', 'unprovider', 'aaa@aaa.aaa', '$2y$10$DWKp0elJzVC6838ew8hgtOgWkBbOOkPWULRqR4eEcVnOsnGMdywMS', 1102, 'kwihihihihihi', 18283, 'kwihihihihihi', '987654321', '2017-04-02 00:00:00', NULL),
+(4, 'Elang', 'Saya', 'elang.nobird@gmail.com', '$2y$10$DWKp0elJzVC6838ew8hgtOgWkBbOOkPWULRqR4eEcVnOsnGMdywMS', 3101, 'Gang Nyamuk No 58', 16412, 'king', '081297451092', '2017-06-30 19:19:54', '20VmzVJElknIIGje3ED5EbU6lMx4sku7TCggfNWcXZrOvbfQqKKTIf6TqPSu');
 
 -- --------------------------------------------------------
 
@@ -906,6 +906,7 @@ CREATE TABLE `ak_tran_saction` (
   `ak_tran_saction_type` text NOT NULL,
   `ak_tran_saction_user` int(11) NOT NULL,
   `ak_tran_saction_course` int(11) NOT NULL,
+  `ak_tran_saction_schedule` int(11) NOT NULL,
   `ak_tran_saction_status` int(11) NOT NULL,
   `ak_tran_saction_midtrans_id` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -914,11 +915,11 @@ CREATE TABLE `ak_tran_saction` (
 -- Dumping data for table `ak_tran_saction`
 --
 
-INSERT INTO `ak_tran_saction` (`ak_tran_saction_id`, `ak_tran_saction_type`, `ak_tran_saction_user`, `ak_tran_saction_course`, `ak_tran_saction_status`, `ak_tran_saction_midtrans_id`) VALUES
-(1, 'echannel', 1, 5, 3, 'ab3889af-1698-429b-a465-8b7082d90b16'),
-(2, 'bank_transfer', 1, 1, 3, '29c52d2d-44a0-40ac-9fbe-b3dbb97dc84c'),
-(3, 'echannel', 1, 2, 3, '3b68b795-4f98-4e2a-88d4-526a035d774a'),
-(4, 'echannel', 2, 1, 3, '084848ce-80ab-44a0-b065-368d31e8d20f');
+INSERT INTO `ak_tran_saction` (`ak_tran_saction_id`, `ak_tran_saction_type`, `ak_tran_saction_user`, `ak_tran_saction_course`,`ak_tran_saction_schedule` , `ak_tran_saction_status`, `ak_tran_saction_midtrans_id`) VALUES
+(1, 'echannel', 1, 5, 3,1 ,'ab3889af-1698-429b-a465-8b7082d90b16'),
+(2, 'bank_transfer', 1, 1, 3, 1, '29c52d2d-44a0-40ac-9fbe-b3dbb97dc84c'),
+(3, 'echannel', 1, 2, 3, 1, '3b68b795-4f98-4e2a-88d4-526a035d774a'),
+(4, 'echannel', 2, 1, 3, 1, '084848ce-80ab-44a0-b065-368d31e8d20f');
 
 -- --------------------------------------------------------
 
@@ -938,7 +939,9 @@ CREATE TABLE `ak_tran_status` (
 INSERT INTO `ak_tran_status` (`id_ak_tran_status_id`, `ak_tran_status_name`) VALUES
 (1, 'SUCCESS'),
 (2, 'ERROR'),
-(3, 'PENDING');
+(3, 'PENDING'),
+(4, 'EXCESSSTUDENT');
+
 
 -- --------------------------------------------------------
 
@@ -1267,6 +1270,7 @@ ALTER TABLE `ak_sub_category`
 ALTER TABLE `ak_tran_saction`
   ADD CONSTRAINT `fk_ak_tran_saction_ak_tran_status1` FOREIGN KEY (`ak_tran_saction_status`) REFERENCES `ak_tran_status` (`id_ak_tran_status_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_ak_tran_saction_ak_course1` FOREIGN KEY (`ak_tran_saction_course`) REFERENCES `ak_course` (`ak_course_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_ak_tran_saction_ak_schedule1` FOREIGN KEY (`ak_tran_saction_schedule`) REFERENCES `ak_course_schedule` (`ak_course_schedule_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_ak_tran_saction_ak_user1` FOREIGN KEY (`ak_tran_saction_user`) REFERENCES `ak_user` (`ak_user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- 

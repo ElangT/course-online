@@ -4,16 +4,12 @@
             <div class="site-footer-newsletter">
                 <h3>Daftar Newsletter</h3>
                 <p>Jadilah orang pertama yang mendapatkan informasi diskon dan penawaran menarik dari kursusin khusus untuk Anda!</p>
-                <div class="col-newsletter">
-                    <p><input class="input-newsletter" type="text" placeholder="Enter e-mail" ></p>
-                    <button class="button-newsletter" type="subscribe">Dapatkan Newsletter</button>
-                </div>
             </div>
             <div class="container">
                 <div class="row">
                     <div class="footer-col col-md-6">
                         <div class="footer-menu">
-                            <div class="footer-first">
+                            <div class="footer-first-child">
                                 <div class="logo-footer">
                                     <h2>Kursusin</h2>
                                 </div>
@@ -83,7 +79,7 @@
             </div>
             <div class="footer-site-bottom">
                 <div class="site-bottom">
-                    <p>Company Name &copy; 2015</p>
+                    <p>Kursusin; 2017</p>
                 </div>
             </div>
         </div>

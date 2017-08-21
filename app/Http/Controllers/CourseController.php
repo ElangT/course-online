@@ -70,9 +70,11 @@ class CourseController extends Controller
     {
         $subcat = SubCategory::all();
         $maincat = MainCategory::all();
-        return view('create-course')
+        $content = false;
+        return view('course-create')
                 ->with('maincat', $maincat)
                 ->with('subcat', $subcat)
+                ->with('content', $content)
                 ;
     }
 
@@ -261,12 +263,14 @@ class CourseController extends Controller
 
         $subcat = SubCategory::all();
         $maincat = MainCategory::all();
+        $content = true;
         return view('course-edit', [
             'maincat' => $maincat,
             'subcat' => $subcat,
             'course' => $courses,
             'image' => $img->ak_provider_img_path,
             'schedules' => $schedules,
+            'content' => $content,
         ]);
     }
 

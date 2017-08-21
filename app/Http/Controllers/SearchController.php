@@ -37,12 +37,8 @@ class SearchController extends Controller
                     ->join('ak_provider_img', 'ak_provider.ak_provider_id', '=', 'ak_provider_img.ak_provider_id')
                     ->join('ak_region', 'ak_provider.ak_provider_region', '=', 'ak_region.ak_region_id')
                     ->join('ak_province', 'ak_region.ak_region_prov_id', '=', 'ak_province.ak_province_id')
-                    ->select('ak_course.*', 'ak_course_level.ak_course_level_name', 'ak_sub_category.ak_subcat_name', 'ak_course_age.ak_course_age_name_id', 'ak_course_detail.*', 'ak_provider_img.ak_provider_img_path')
-                    ->where('ak_course_active');
-                        $courses = $query->get();
-        // if (count($courses) < 1) {
-        //     $courses = [];
-        // }
+                    ->select('ak_course.*', 'ak_course_level.ak_course_level_name', 'ak_sub_category.ak_subcat_name', 'ak_course_age.ak_course_age_name_id', 'ak_course_detail.*', 'ak_provider_img.ak_provider_img_path');
+        $courses = $query->get();
         return view('search')
             ->with('courses', $courses)
             ->with('target', '')
@@ -62,11 +58,9 @@ class SearchController extends Controller
         $target = $request->input('key');
         if (!isset($target) || $target == null): $target = ''; endif;
         $location = $request->input('location');
-        if (!isset($target) || $location == null): $location = '';
-        $min = $request->input('min'); endif;
-        if (!isset($target) || $min == null): $min = 0; endif;
+        if (!isset($target) || $location == null): $location = ''; endif;
+        $min = $request->input('min');
         $max = $request->input('max');
-        if (!isset($target) || $max == null): $max = 1000000; endif;
         $age = $request->input('age');
         if (!isset($target) || $age == null): $age = ''; endif;
         $level = $request->input('level');
@@ -93,6 +87,12 @@ class SearchController extends Controller
                         ->orWhereRaw('LOWER(ak_provider.ak_provider_firstname) like ?', [$target])
                         ->orWhereRaw('LOWER(ak_provider.ak_provider_lastname) like ?', [$target]);
                     });
+                    if (isset($target) and !is_null($min)){
+                        $query->where('ak_course_detail.ak_course_detail_price', '>=', $min);
+                    }
+                    if (isset($target) and !is_null($max)){
+                        $query->where('ak_course_detail.ak_course_detail_price', '<=', $max);
+                    }
                     $query->where('ak_course_active', '=', true);
                     $query->where (function ($query) use ($location) {
                         return $query->whereRaw('LOWER(ak_region.ak_region_name) like ?', [$location])
@@ -100,10 +100,6 @@ class SearchController extends Controller
                         ->orWhereRaw('LOWER(ak_region.ak_region_cityname) like ?', [$location])
                         ->orWhereRaw('LOWER(ak_province.ak_province_name) like ?', [$location])
                         ->orWhereRaw('LOWER(ak_province.ak_province_name_idn) like ?', [$location]);
-                    });
-                    $query->where (function ($query) use ($min, $max) {
-                    return $query->where('ak_course_detail.ak_course_detail_price', '>=', $min)
-                        ->where('ak_course_detail.ak_course_detail_price', '<=', $max);
                     });
                     $query->where (function ($query) use ($age) {
                         return $query->whereRaw('LOWER(ak_course_age.ak_course_age_name_id) like ?', [$age])

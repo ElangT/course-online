@@ -33,15 +33,13 @@ class NotificationController extends Controller
     dispatch(new SendExcessStudentEmail($content, $provider));
 
   }
-	public function notify(Request $request)
+  public function notify(Request $request)
     {
-        $result = file_get_contents('php://input');
+        $result = $request->getContent();
         $result = json_decode($result);
-
         if($result === null){
           dd($request);
         }
-
         switch ($result->transaction_status) {
             case 'capture':
                 $result->transaction_status = 1;
@@ -56,7 +54,7 @@ class NotificationController extends Controller
                 $result->transaction_status = 0;
                 break;
         }
-
+    $transaction_status = $result->transaction_status;
         if($transaction_status === 1){
             $tran = Transaction::where('ak_tran_saction_midtrans_id' , '=', $result->transaction_id)->get();
             $provider = Course::find($tran[0]->ak_tran_saction_course);
@@ -84,8 +82,8 @@ class NotificationController extends Controller
         // $maincat->ak_maincat_name = $name;
         // $maincat->save();
 
-        dd($request);
-/*
+    return 200;
+    /*
         $midtrans = new Midtrans();
         echo 'test notification handler';
         $json_result = file_get_contents('php://input');

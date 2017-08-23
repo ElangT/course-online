@@ -9,6 +9,20 @@
       }
     </style>
 
+<?php
+  $loginroute = 'login';
+  $regisroute = 'register';
+  $logoutroute = 'logout';
+  if(Auth::guest() && !Auth::guard('provider')->check() && strpos(Route::currentRouteName(), 'provider') !== false){
+    $loginroute = 'provider.login';
+    $regisroute = 'provider.register';
+  }
+  if(Auth::guard('provider')->check()){
+    $logoutroute = 'provider.logout';
+  }
+
+?>
+
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -31,17 +45,17 @@
       			<li>
 			        <div class='panel-custom'>
 		          @if (Auth::guest())
-                <li><a class="Sign-in" href="{{ route('login') }}">Masuk</a></li>
-                <li><a class="Sign-up" href="{{ route('register') }}" style="border-radius: 50px; 
+                <li><a class="Sign-in" href="{{ route($loginroute) }}">Masuk</a></li>
+                <li><a class="Sign-up" href="{{ route($regisroute) }}" style="border-radius: 50px; 
         padding: 5px 15px; 
         margin-top: 10px;">Daftar</a></li>
               @else
-                <li><a  href="{{ route('logout') }}"
+                <li><a  href="{{ route($logoutroute) }}"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     Logout
                     </a>
 
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    <form id="logout-form" action="{{ route($logoutroute) }}" method="POST" style="display: none;">
                       {{ csrf_field() }}
                     </form>
                 </li>

@@ -54,6 +54,10 @@ Route::group(array('prefix' => 'provider'), function(){
 
 	Route::post('/register', 'Auth\ProviderRegisterController@register')->name('provider.register.submit');
 
+	Route::get('/edit', 'ProviderController@edit')->name('provider.edit');
+
+	Route::post('/edit', 'ProviderController@update')->name('provider.edit.submit');
+
 	Route::get('/dashboard', 'ProviderController@index')->name('provider.dashboard');
 
 	Route::get('/createcourse', 'CourseController@create')->name('course.create')->middleware('auth:provider');

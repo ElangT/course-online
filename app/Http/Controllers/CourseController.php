@@ -173,15 +173,15 @@ class CourseController extends Controller
         $detail->ak_course_detail_seat = $request->seat;
         $detail->ak_course_id = $course->ak_course_id;
         $detail->save();
-        for ($i=1; $i <= $request->jmlschedule; $i++) { 
-            if(!is_null(request("day".$i)) && !is_null(request("time".$i))){
-                $schedules = new CourseSchedule;
-                $schedules->ak_course_schedule_detid = $detail->getId();
-                $schedules->ak_course_schedule_day = request('day'.$i);
-                $schedules->ak_course_schedule_time = request('time'.$i);
-                $schedules->save();
-            }
+        $detailid = $detail->getId();
+        foreach ($request->day as $key => $value) {
+            $schedule = new CourseSchedule;
+            $schedule->ak_course_schedule_detid = $detailid;
+            $schedule->ak_course_schedule_day = $value;
+            $schedule->ak_course_schedule_time = $request->time[$key];
+            $schedule->save();
         }
+
         return redirect('/provider/dashboard');
     }
 
@@ -282,7 +282,7 @@ class CourseController extends Controller
         return redirect('provider/manage/'.$tran->ak_tran_saction_course);
     }
 
-    /**
+/**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -294,12 +294,11 @@ class CourseController extends Controller
     {
 
         $this->validatecourse($request);
-
         $course =Course::find($id);
         $course->ak_course_name = $request->name ;
         $course->ak_course_cat_id = $request->subcat;
         $course->save();   
-        $detail = CourseDetail::where('ak_course_id', '=', $course->ak_course_id)->first();
+        $detail = CourseDetail::where('ak_course_id', '=', $id)->first();
         $detail->ak_course_detail_name = $request->name . " detail";
         $detail->ak_course_detail_price = $request->price;
         $detail->ak_course_detail_level = $request->level;
@@ -308,16 +307,23 @@ class CourseController extends Controller
         $detail->ak_course_detail_seat = $request->seat;
         $detail->ak_course_detail_desc = $request->description;
         $detail->save();
-        for ($i=1; $i <= $request->jmlschedule; $i++) { 
-            if(!is_null(request("day".$i)) && !is_null(request("time".$i))){
-                $schedules = new CourseSchedule;
-                $schedules->ak_course_schedule_detid = $detail->getId();
-                $schedules->ak_course_schedule_day = request('day'.$i);
-                $schedules->ak_course_schedule_time = request('time'.$i);
-                $schedules->save();
-            }
+        $detailid = $detail->getId();
+        foreach ($request->oldday as $key => $value) {
+            $schedule = CourseSchedule::find($key);
+            $schedule->ak_course_schedule_day = $value;
+            $schedule->ak_course_schedule_time = $request->oldtime[$key];
+            $schedule->save();
         }
+        if($request->has('day')){
+            foreach ($request->day as $key => $value) {
+                $schedule = new CourseSchedule;
+                $schedule->ak_course_schedule_detid = $detailid;
+                $schedule->ak_course_schedule_day = $value;
+                $schedule->ak_course_schedule_time = $request->time[$key];
+                $schedule->save();
+            }
 
+        }
         return redirect('provider/dashboard');
     }
 

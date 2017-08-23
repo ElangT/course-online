@@ -16,15 +16,7 @@ class ProviderLoginController extends Controller
     public function showLoginForm(){
     	return view('auth.provider-login');
     }
-    // public function login()
-    // {
-    //     $this->validate($request, [
-    //         'ak_provider_email' => 'required|email',
-    //         'ak_provider_password' => 'required|min:6'
-    //         ]);
-    //     Auth::attempt($credetials, $remember);
 
-    // }
     protected $redirectTo = '/provider/dashboard';
 
     public function logout(Request $request)

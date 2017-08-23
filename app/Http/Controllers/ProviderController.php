@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Provider;
-use App\Region;
-use App\Province;
 use App\ProviderImg;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
@@ -94,24 +92,20 @@ class ProviderController extends Controller
      */
     public function edit(Provider $provider)
     {
-        // 'ak_provider_firstname',
-        // 'ak_provider_lastname',
-        // 'ak_provider_email',
-        // 'ak_provider_password',
-        // 'ak_provider_region',
-        // 'ak_provider_address',
-        // 'ak_provider_zipcode',
-        // 'ak_provider_description',
-        // 'ak_provider_telephone'
 
         $provider = Provider::find(Auth::id());
 
-        $province = Province::all();
-        $region = Region::all();
+        $query = DB::table('ak_province')
+                    ->select('*');
+        $province = $query->get();
+        $query = DB::table('ak_region')
+                    ->select('*');
+        $region = $query->get();
 
         return view('provider-edit')
                 ->with('province', $province)
-                ->with('region', $region);
+                ->with('region', $region)
+                ->with('provider', $provider);
         
     }
 

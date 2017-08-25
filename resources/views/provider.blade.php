@@ -6,6 +6,8 @@
 <img src="{{ asset('images/'.$image) }}" class="img-thumbnail" alt="Cinque Terre" width="304" height="236">
 <a href="{{route('course.create')}}">Create Course</a>
 <a href="{{route('provider.edit')}}">Change Profile</a>
+<a href="{{route('provider.passwordedit')}}">Change Password</a>
+
         <form action="{{ route('provider.image.upload') }}" enctype="multipart/form-data" method="POST">
             {{ csrf_field() }}
             <input type="file" name="image" />

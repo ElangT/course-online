@@ -90,9 +90,23 @@ class ProviderController extends Controller
      * @param  \App\Provider  $provider
      * @return \Illuminate\Http\Response
      */
-    public function passwordchange()
+    public function passwordedit()
     {
         return view('auth.provider-password');
+    }
+    public function passwordupdate(Request $request)
+    {
+            $this->validate($request, [
+                'password' => 'required|confirmed',
+            ]);
+            $credentials = $request->only(
+                    'password', 'password_confirmation'
+            );
+            $user = \Auth::user();
+            $user->ak_provider_password = bcrypt($credentials['password']);
+            $user->save();
+            return redirect('provider/dashboard');
+
     }
     public function edit(Provider $provider)
     {

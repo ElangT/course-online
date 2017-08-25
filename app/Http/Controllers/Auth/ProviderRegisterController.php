@@ -57,11 +57,11 @@ class ProviderRegisterController extends Controller
         $query = DB::table('ak_region')
                     ->select('*');
         $region = $query->get();
-        // dd($province);
-        // dd($region);
+        $content = false;
         return view('auth.provider-register')
                 ->with('province', $province)
-                ->with('region', $region);
+                ->with('region', $region)
+                ->with('content', $content);
     }
 
     /**

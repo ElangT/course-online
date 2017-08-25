@@ -90,6 +90,10 @@ class ProviderController extends Controller
      * @param  \App\Provider  $provider
      * @return \Illuminate\Http\Response
      */
+    public function passwordchange()
+    {
+        return view('auth.provider-password');
+    }
     public function edit(Provider $provider)
     {
 
@@ -123,6 +127,7 @@ class ProviderController extends Controller
      * @param  \App\Provider  $provider
      * @return \Illuminate\Http\Response
      */
+
     public function update(Request $request, Provider $provider)
     {
         $this->validate($request, [

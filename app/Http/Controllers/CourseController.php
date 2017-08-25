@@ -297,6 +297,8 @@ class CourseController extends Controller
         $course =Course::find($id);
         $course->ak_course_name = $request->name ;
         $course->ak_course_cat_id = $request->subcat;
+        $course->ak_course_open = $request->open;
+        $course->ak_course_active = $request->active;
         $course->save();   
         $detail = CourseDetail::where('ak_course_id', '=', $id)->first();
         $detail->ak_course_detail_name = $request->name . " detail";

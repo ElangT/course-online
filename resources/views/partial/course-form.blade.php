@@ -6,6 +6,44 @@
                 value="{{$course->ak_course_name}}"
             @endif>
         </div>
+        @if($content)
+            <label for="open">Buka</label> 
+            <div class="form-group">
+                @if($course->ak_course_open)
+                    <div class="radio">
+                      <label class="radio-inline"><input type="radio" name="open" value="1" checked="checked">Open</label>
+                    </div>
+                    <div class="radio">
+                      <label class="radio-inline"><input type="radio" name="open" value="0">Close</label>
+                    </div>
+                @else
+                    <div class="radio">
+                      <label class="radio-inline"><input type="radio" name="open" value="1">Open</label>
+                    </div>
+                    <div class="radio">
+                      <label class="radio-inline"><input type="radio" name="open" value="0" checked="checked">Close</label>
+                    </div>
+                @endif
+            </div>
+            <label for="active">Aktifasi</label> 
+            <div class="form-group">
+                @if($course->ak_course_active)
+                    <div class="radio">
+                      <label class="radio-inline"><input type="radio" name="active" value="1" checked="checked">Active</label>
+                    </div>
+                    <div class="radio">
+                      <label class="radio-inline"><input type="radio" name="active" value="0">Deactive</label>
+                    </div>
+                @else
+                    <div class="radio">
+                      <label class="radio-inline"><input type="radio" name="active" value="1">Active</label>
+                    </div>
+                    <div class="radio">
+                      <label class="radio-inline"><input type="radio" name="active" value="0" checked="checked">Deactive</label>
+                    </div>
+                @endif
+            </div>
+        @endif
         <label for="maincat">Main Catagory</label> 
         <div class="form-group">
             <select class="form-control" required name="maincat" id="maincat">

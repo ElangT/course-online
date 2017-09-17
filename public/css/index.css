@@ -1,0 +1,21 @@
+header {
+  background: black;
+  padding: 1em;
+  height: 50vh;
+}
+header .sign-up {
+  margin: 23vh 43vw;
+}
+section h3 {
+  padding: 2em;
+}
+section {
+  color: #0e3144 ;
+  text-align: center;
+  margin: 7em 0;
+}
+
+#work i {
+  font-size: 10em;
+  color: #0e3144 ;
+}

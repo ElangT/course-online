@@ -1,4 +1,4 @@
-#<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="{{ config('app.locale') }}">
 <head>
     <meta charset="utf-8">
@@ -13,11 +13,15 @@
     <title>{{ config('app.name', 'Kursusin' ) }}</title>
 
     <!-- Styles -->
-
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="{{ asset('/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('/js/awesomplete.css')}}" />
 
     <link href="{{ asset('/css/kursusin.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('/css/navbar.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('/css/footer.css')}}" rel="stylesheet" type="text/css">
+
+    @yield('additional-css')
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
@@ -32,13 +36,13 @@
     <!-- Bootstrap Core CSS -->
 </head>
         @include('layouts.nav')
-    
+
+        @yield('content')
         <div class="search-form">
             <div class="search-layout">
-            @yield('content')
             </div>
         </div>
-        
+
         @include('layouts.footer')
 
     <!-- jQuery -->

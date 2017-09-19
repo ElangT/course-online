@@ -35,7 +35,9 @@
 <div class="container">
     <section id="description">
       <h3>KURSUSIN</h3>
-      <p>A eros ultrices vestibulum etiam consectetur pretium penatibus id metus posuere suspendisse sed ante dictumst suspendisse aliquam eget nibh. Tristique parturient odio id scelerisque per neque facilisi feugiat integer cubilia ante a dui congue sem scelerisque ad integer parturient ante. Consequat varius a montes nullam a sociis in cubilia vestibulum vivamus consectetur vestibulum ac tempor malesuada a commodo facilisis cum parturient quam ornare hendrerit fames eget aenean tristique. A in a montes ac penatibus eget enim scelerisque accumsan mus volutpat lacinia sociosqu purus ridiculus at at ultricies phasellus est pharetra eros cras habitasse.</p>
+      <p>Kursusin adalah pasar online (marketplace) di mana calon murid dapat mencari tempat kursus sesuai kebutuhannya dan bisa langsung terdaftar sebagia murid di program yang ditawarkan.
+        <br>
+      Kursusin memberikan kemudahan dan kecepatan dalam proses pendaftaran murid kursus melalui sistem seperti belanja online.</p>
     </section>
     <section id="work">
       <h3>CARA KERJA KURSUSIN</h3>
@@ -43,30 +45,31 @@
         <div class="col-sm-12 col-md-4">
           <i class="fa fa-search" aria-hidden="true"></i>
           <h4>CARI</h4>
-          <p>Eu vestibulum ligula inceptos tellus vestibulum litora mus a nisi rutrum sem ad porta a parturient scelerisque dapibus.</p>
+          <p>Temukan beragam tempat kursus terpercaya tanpa harus repot datang ke sana.</p>
         </div>
         <div class="col-sm-12 col-md-4">
           <i class="fa fa-users" aria-hidden="true"></i>
           <h4>DAFTAR</h4>
-          <p>Eu vestibulum ligula inceptos tellus vestibulum litora mus a nisi rutrum sem ad porta a parturient scelerisque dapibus.</p>
+          <p>Kamu bisa langusng isi formulir pendaftaran lewat website kursusin melalui komputer atau smartphone.</p>
         </div>
         <div class="col-sm-12 col-md-4">
           <i class="fa fa-money" aria-hidden="true"></i>
           <h4>BAYAR</h4>
-          <p>Eu vestibulum ligula inceptos tellus vestibulum litora mus a nisi rutrum sem ad porta a parturient scelerisque dapibus.</p>
+          <p>Bayar kursus semudah belanja online. Kamu bisa langsung transfer lewat atm atau online banking.</p>
         </div>
       </div>
     </section>
     <section id="testimoni">
+    <h3>Testimoni</h3>
       <div class="row">
         <div class="col-sm-12 col-md-4">
-
+          <img src="{{ asset('img/favicons/retno-01.jpg') }}" class="img-thumbnail" alt="testimoni">
         </div>
         <div class="col-sm-12 col-md-4">
-
+          <img src="{{ asset('img/favicons/kursus-bahasa-inggris-01.jpg') }}" class="img-thumbnail" alt="testimoni">
         </div>
         <div class="col-sm-12 col-md-4">
-
+          <img src="{{ asset('img/favicons/daftarkan-01.jpg') }}" class="img-thumbnail" alt="testimoni">
         </div>
       </div>
     </section>

@@ -1,18 +1,18 @@
 header {
-  background: black;
-  padding: 1em;
+  background-image: url("../img/header.jpg");
+  padding: 0.5em;
   height: 50vh;
 }
 header .sign-up {
-  margin: 23vh 43vw;
+  margin: 20vh 40vw;
 }
 section h3 {
-  padding: 2em;
+  padding: !em;
 }
 section {
   color: #0e3144 ;
   text-align: center;
-  margin: 7em 0;
+  margin: 5em 0;
 }
 
 #work i {

@@ -118,7 +118,7 @@ p.footer-links a{
 	background: #2f7495;
 	padding-top: 20px;
 	padding-bottom: 35px;
-	height: 35vh;
+	min-height: 20vh;
 }
 .input-newsletter {
     width: 400px;
@@ -130,7 +130,7 @@ p.footer-links a{
 }
 
 .button-newsletter{
-	padding: 6px 1.5em;
+	padding: 6px 1.5em ;
 	background-color: #ff9014;
 	color: #ffffff;
 	text-decoration: none;

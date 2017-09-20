@@ -30,48 +30,52 @@
     </div>
 </form> -->
 <header>
-  <button class="btn sign-up ">Cari Kursusin Sekarang</button>
+  <button class="btn btn-kursusin" id="search-button">Cari Kursusin Sekarang</button>
 </header>
-<div class="container">
-    <section id="description">
-      <h3>KURSUSIN</h3>
-      <p>Kursusin adalah pasar online (marketplace) di mana calon murid dapat mencari tempat kursus sesuai kebutuhannya dan bisa langsung terdaftar sebagia murid di program yang ditawarkan.
-        <br>
-      Kursusin memberikan kemudahan dan kecepatan dalam proses pendaftaran murid kursus melalui sistem seperti belanja online.</p>
-    </section>
-    <section id="work">
-      <h3>CARA KERJA KURSUSIN</h3>
-      <div class="row">
-        <div class="col-sm-12 col-md-4">
-          <i class="fa fa-search" aria-hidden="true"></i>
-          <h4>CARI</h4>
-          <p>Temukan beragam tempat kursus terpercaya tanpa harus repot datang ke sana.</p>
-        </div>
-        <div class="col-sm-12 col-md-4">
-          <i class="fa fa-users" aria-hidden="true"></i>
-          <h4>DAFTAR</h4>
-          <p>Kamu bisa langusng isi formulir pendaftaran lewat website kursusin melalui komputer atau smartphone.</p>
-        </div>
-        <div class="col-sm-12 col-md-4">
-          <i class="fa fa-money" aria-hidden="true"></i>
-          <h4>BAYAR</h4>
-          <p>Bayar kursus semudah belanja online. Kamu bisa langsung transfer lewat atm atau online banking.</p>
-        </div>
+<section id="description">
+  <div class="container">
+    <h3>Kursusin</h3>
+    <p>Kursusin adalah pasar online (marketplace) di mana calon murid dapat mencari tempat kursus sesuai kebutuhannya dan bisa langsung terdaftar sebagia murid di program yang ditawarkan.
+      <br>
+    Kursusin memberikan kemudahan dan kecepatan dalam proses pendaftaran murid kursus melalui sistem seperti belanja online.</p>
+  </div>
+</section>
+<section id="work">
+  <h3>Cara Kerja Kursusin</h3>
+  <div class="container">
+    <div class="row" id="work-container">
+      <div class="col-sm-12 col-md-4">
+        <img src="{{ asset('img/favicons/proposalAsset2.png') }}">
+        <h4>CARI</h4>
+        <p>Temukan beragam tempat kursus terpercaya tanpa harus repot datang ke sana.</p>
       </div>
-    </section>
-    <section id="testimoni">
-    <h3>Testimoni</h3>
-      <div class="row">
-        <div class="col-sm-12 col-md-4">
-          <img src="{{ asset('img/favicons/retno-01.jpg') }}" class="img-thumbnail" alt="testimoni">
-        </div>
-        <div class="col-sm-12 col-md-4">
-          <img src="{{ asset('img/favicons/kursus-bahasa-inggris-01.jpg') }}" class="img-thumbnail" alt="testimoni">
-        </div>
-        <div class="col-sm-12 col-md-4">
-          <img src="{{ asset('img/favicons/daftarkan-01.jpg') }}" class="img-thumbnail" alt="testimoni">
-        </div>
+      <div class="col-sm-12 col-md-4">
+        <img src="{{ asset('img/favicons/proposalAsset12.png') }}">
+        <h4>DAFTAR</h4>
+        <p>Kamu bisa langusng isi formulir pendaftaran lewat website kursusin melalui komputer atau smartphone.</p>
       </div>
-    </section>
-</div>
+      <div class="col-sm-12 col-md-4">
+        <img src="{{ asset('img/favicons/proposalAsset7.png') }}">
+        <h4>BAYAR</h4>
+        <p>Bayar kursus semudah belanja online. Kamu bisa langsung transfer lewat atm atau online banking.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="testimoni">
+<h3>Testimoni</h3>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-4">
+        <img src="{{ asset('img/favicons/retno-01.jpg') }}" class="img-thumbnail" alt="testimoni">
+      </div>
+      <div class="col-sm-12 col-md-4">
+        <img src="{{ asset('img/favicons/kursus-bahasa-inggris-01.jpg') }}" class="img-thumbnail" alt="testimoni">
+      </div>
+      <div class="col-sm-12 col-md-4">
+        <img src="{{ asset('img/favicons/daftarkan-01.jpg') }}" class="img-thumbnail" alt="testimoni">
+      </div>
+    </div>
+  </div>
+</section>
 @endsection

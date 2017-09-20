@@ -19,7 +19,7 @@
                   <div class="col-md-4 col-lg-4">
                     <div class="footer-first">
                         <div class="logo-footer">
-                            <h2>Kursusin</h2>
+                            <img src="{{ asset('img/Asset2.png') }}">
                         </div>
                         <div class="footer-desc">
                             <p>Bergabung dengan kursusin</p>

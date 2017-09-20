@@ -191,3 +191,16 @@
 .result-text {
 	text-align: center;
 }
+
+.btn-kursusin {
+	margin: 0.5em;
+    background-color: #0057ff;
+    color: #fff;
+    border-radius: 50px;
+}
+.btn-kursusin:hover {
+	margin: 0.5em;
+    background-color: #fff;
+    color:#0057ff;
+    border-radius: 50px;
+}

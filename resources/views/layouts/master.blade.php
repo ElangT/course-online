@@ -38,10 +38,10 @@
         @include('layouts.nav')
 
         @yield('content')
-        <div class="search-form">
+        <!-- <div class="search-form">
             <div class="search-layout">
             </div>
-        </div>
+        </div> -->
 
         @include('layouts.footer')
 

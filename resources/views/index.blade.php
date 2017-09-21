@@ -30,7 +30,9 @@
     </div>
 </form> -->
 <header>
-  <button class="btn btn-kursusin" id="search-button">Cari Kursusin Sekarang</button>
+  <form action="{{url('/search')}}">
+    <button class="btn btn-kursusin" id="search-button" type="submit" value="Go to Google">Cari Kursusin Sekarang</button>
+</form>
 </header>
 <section id="description">
   <div class="container">

@@ -44,13 +44,17 @@ class SnapController extends Controller
         };
         $total = 0;
         $cart = [];
-        if(!is_null($populate)){
-            $schedule_ids = Session::get('schedule');
+        $schedule_ids = Session::get('schedule');
+
+        if(!is_null($schedule_ids)){
             $cart = array_map($populate, $schedule_ids);
             foreach ($cart as $key) {
                 $total += $key->detail->ak_course_detail_price;
             }
+        } else {
+            return back();
         }
+        
         Session::put('total', $total);
         return view('snap_checkout')->with('cart', $cart);
     }

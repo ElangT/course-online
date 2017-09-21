@@ -21,7 +21,10 @@
 			        <div class='panel-custom'>
   		          @if (Auth::guest())
                   <li><a class="sign-in" href="{{ route('login') }}">Masuk</a></li>
-                  <li><button class="btn btn-kursusin sign-up " href="{{ route('register') }}"> Daftar</button></li>
+                  <li>
+                    <form action="{{ route('register') }}">
+                        <button class="btn btn-kursusin sign-up" id="search-button" type="submit" >Daftar</button>
+                    </form>
                 @else
                   <li><a  href="{{ route('logout') }}"
                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

@@ -5,7 +5,9 @@
 <div class="panel"> 
 <img src="{{ asset('images/'.$image) }}" class="img-thumbnail" alt="Cinque Terre" width="304" height="236">
 <a href="{{route('course.create')}}">Create Course</a>
-<button>Change Profil</button>
+<a href="{{route('provider.edit')}}">Change Profile</a>
+<a href="{{route('provider.passwordedit')}}">Change Password</a>
+
         <form action="{{ route('provider.image.upload') }}" enctype="multipart/form-data" method="POST">
             {{ csrf_field() }}
             <input type="file" name="image" />
@@ -31,34 +33,9 @@
                 @foreach($course->schedule as $schedule)
                 <p class="margin-down-sml">{{ $schedule->ak_course_schedule_day }}, {{ $schedule->ak_course_schedule_time }}</p>
        			@endforeach
-                    <a href="{{ Route('course.update', $course->ak_course_id)}}">Edit</a>
-                    <a href="{{ URL::to('/provider/manage/' . $course->ak_course_id) }}">Manage</a>
+                <a href="{{ Route('course.update', $course->ak_course_id)}}">Edit</a>
+                <a href="{{ URL::to('/provider/manage/' . $course->ak_course_id) }}">Manage</a>
 
-                    <a href="{{ URL::to('/provider/open/' . $course->ak_course_id) }}"
-                        onclick="event.preventDefault();
-                                 document.getElementById('close-{{$course->ak_course_id}}').submit();">
-                        @if($course->ak_course_open)
-                            Close
-                        @else
-                            Open
-                        @endif
-                    </a>
-                    <form id="close-{{$course->ak_course_id}}" action="{{ URL::to('/provider/open/' . $course->ak_course_id) }}" method="POST" style="display: none;">
-                        {{ csrf_field() }}
-                    </form>
-
-                    <a href="{{ URL::to('/provider/active/' . $course->ak_course_id) }}"
-                        onclick="event.preventDefault();
-                                 document.getElementById('active-{{$course->ak_course_id}}').submit();">
-                        @if($course->ak_course_active)
-                            Deactive
-                        @else
-                            Active
-                        @endif                    
-                    </a>
-                    <form id="active-{{$course->ak_course_id}}" action="{{ URL::to('/provider/active/' . $course->ak_course_id) }}" method="POST" style="display: none;">
-                        {{ csrf_field() }}
-                    </form>
             </div>
         </div>
     </div>

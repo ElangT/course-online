@@ -1,20 +1,32 @@
-@extends('layouts.master')
-
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Provider Register</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('provider.register.submit') }}">
-                        {{ csrf_field() }}
-
+<?php
+        $firstname = "";
+        $lastname = "";
+        $email = "";
+        $telephone = "";
+        $provinsi = "";
+        $daerah = "";
+        $address = "";
+        $zipcode = "";
+        $description = "";
+    if($content){
+        $firstname = $provider->ak_provider_firstname;
+        $lastname = $provider->ak_provider_lastname;
+        $email = $provider->ak_provider_email;
+        $telephone = $provider->ak_provider_telephone;
+        $daerah = $provider->ak_provider_region;
+        $provinsi = $proprov;
+        $address = $provider->ak_provider_address;
+        $zipcode = $provider->ak_provider_zipcode;
+        $description = $provider->ak_provider_description;
+    }
+?>
                         <div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
                             <label for="firstname" class="col-md-4 control-label">First Name</label>
 
                             <div class="col-md-6">
-                                <input id="firstname" type="text" class="form-control" name="firstname" value="{{ old('firstname') }}" required autofocus>
+                                <input id="firstname" type="text" class="form-control" name="firstname" 
+                                value="{{ old('firstname', $firstname) }}"
+                                 required autofocus>
 
                                 @if ($errors->has('firstname'))
                                     <span class="help-block">
@@ -27,7 +39,7 @@
                             <label for="lastname" class="col-md-4 control-label">Last Name</label>
 
                             <div class="col-md-6">
-                                <input id="lastname" type="text" class="form-control" name="lastname" value="{{ old('lastname') }}" required autofocus>
+                                <input id="lastname" type="text" class="form-control" name="lastname" value="{{ old('lastname', $lastname) }}" required autofocus>
 
                                 @if ($errors->has('lastname'))
                                     <span class="help-block">
@@ -41,7 +53,7 @@
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email', $email) }}" required>
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -50,34 +62,34 @@
                                 @endif
                             </div>
                         </div>
+                        @if(!$content)
+                            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                                <label for="password" class="col-md-4 control-label">Password</label>
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
+                                <div class="col-md-6">
+                                    <input id="password" type="password" class="form-control" name="password" required>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
+                                    @if ($errors->has('password'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('password') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
+                            <div class="form-group">
+                                <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
 
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                <div class="col-md-6">
+                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                </div>
                             </div>
-                        </div>
-
+                        @endif
                         <div class="form-group{{ $errors->has('telephone') ? ' has-error' : '' }}">
                             <label for="telephone" class="col-md-4 control-label">Telephone</label>
 
                             <div class="col-md-6">
-                                <input id="telephone" type="number" class="form-control" name="telephone" value="{{ old('telephone') }}" required autofocus>
+                                <input id="telephone" type="number" class="form-control" name="telephone" value="{{ old('telephone', $telephone) }}" required autofocus>
 
                                 @if ($errors->has('telephone'))
                                     <span class="help-block">
@@ -91,10 +103,14 @@
                             <label for="province" class="col-md-4 control-label">Province</label>
 
                             <div class="col-md-6">
-                                <select id="province" class="form-control" name="province" value="{{ old('province') }}" required autofocus>
-                                <option value="" disabled selected hidden>Province</option>
+                                <select id="province" class="form-control" name="province" value="{{ old('province', $provinsi) }}" required autofocus>
+                                <option value="" selected hidden>Province</option>
                                     @foreach($province as $i)
-                                        <option value="{{$i->ak_province_id}}">{{$i->ak_province_name}}</option>
+                                        @if($content and $provinsi == $i->ak_province_id)
+                                            <option selected value="{{$i->ak_province_id}}">{{$i->ak_province_name}}</option>
+                                        @else
+                                            <option value="{{$i->ak_province_id}}">{{$i->ak_province_name}}</option>
+                                        @endif
                                     @endforeach
                                 </select>
 
@@ -111,10 +127,14 @@
                             <label for="region" class="col-md-4 control-label">Region</label>
 
                             <div class="col-md-6">
-                                <select id="region" class="form-control" name="region" disabled value="{{ old('region') }}" required autofocus>
+                                <select id="region" class="form-control" name="region" value="{{ old('region', $daerah) }}" required autofocus>
                                 <option value="" disabled selected hidden>Region</option>
                                     @foreach($region as $i)
-                                        <option data-id="{{$i->ak_region_prov_id}}" value="{{$i->ak_region_id}}">{{$i->ak_region_cityname}}</option>
+                                        @if($content)
+                                            <option data-id="{{$i->ak_region_prov_id}}" selected value="{{$i->ak_region_id}}">{{$i->ak_region_cityname}}</option>
+                                        @else
+                                            <option data-id="{{$i->ak_region_prov_id}}" value="{{$i->ak_region_id}}">{{$i->ak_region_cityname}}</option>
+                                        @endif
                                     @endforeach
 
                                 </select>
@@ -131,7 +151,7 @@
                             <label for="address" class="col-md-4 control-label">Address</label>
 
                             <div class="col-md-6">
-                                <input id="address" type="text" class="form-control" name="address" value="{{ old('address') }}" required autofocus>
+                                <input id="address" type="text" class="form-control" name="address" value="{{ old('address', $address) }}" required autofocus>
 
                                 @if ($errors->has('address'))
                                     <span class="help-block">
@@ -145,7 +165,7 @@
                             <label for="zipcode" class="col-md-4 control-label">Kode Pos</label>
 
                             <div class="col-md-6">
-                                <input id="zipcode" type="text" class="form-control" name="zipcode" value="{{ old('zipcode') }}" required autofocus>
+                                <input id="zipcode" type="text" class="form-control" name="zipcode" value="{{ old('zipcode', $zipcode) }}" required autofocus>
 
                                 @if ($errors->has('zipcode'))
                                     <span class="help-block">
@@ -159,7 +179,7 @@
                             <label for="description" class="col-md-4 control-label">Description</label>
 
                             <div class="col-md-6">
-                                <textarea id="description" type="text" class="form-control" name="description" value="{{ old('description') }}" required autofocus rows="3"></textarea>
+                                <textarea id="description" type="text" class="form-control" name="description" required autofocus rows="3">{{ old('description', $description) }}</textarea>
 
                                 @if ($errors->has('description'))
                                     <span class="help-block">
@@ -171,14 +191,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Register
+                                    Submit
                                 </button>
                             </div>
                         </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection

@@ -6,12 +6,50 @@
                 value="{{$course->ak_course_name}}"
             @endif>
         </div>
+        @if($content)
+            <label for="open">Buka</label> 
+            <div class="form-group">
+                @if($course->ak_course_open)
+                    <div class="radio">
+                      <label class="radio-inline"><input type="radio" name="open" value="1" checked="checked">Open</label>
+                    </div>
+                    <div class="radio">
+                      <label class="radio-inline"><input type="radio" name="open" value="0">Close</label>
+                    </div>
+                @else
+                    <div class="radio">
+                      <label class="radio-inline"><input type="radio" name="open" value="1">Open</label>
+                    </div>
+                    <div class="radio">
+                      <label class="radio-inline"><input type="radio" name="open" value="0" checked="checked">Close</label>
+                    </div>
+                @endif
+            </div>
+            <label for="active">Aktifasi</label> 
+            <div class="form-group">
+                @if($course->ak_course_active)
+                    <div class="radio">
+                      <label class="radio-inline"><input type="radio" name="active" value="1" checked="checked">Active</label>
+                    </div>
+                    <div class="radio">
+                      <label class="radio-inline"><input type="radio" name="active" value="0">Deactive</label>
+                    </div>
+                @else
+                    <div class="radio">
+                      <label class="radio-inline"><input type="radio" name="active" value="1">Active</label>
+                    </div>
+                    <div class="radio">
+                      <label class="radio-inline"><input type="radio" name="active" value="0" checked="checked">Deactive</label>
+                    </div>
+                @endif
+            </div>
+        @endif
         <label for="maincat">Main Catagory</label> 
         <div class="form-group">
             <select class="form-control" required name="maincat" id="maincat">
                 <option value="" disabled hidden selected>Main Catagory</option> 
                 @foreach($maincat as $i)
-                    @if ($content and $course->ak_maincat_id) == $i->ak_maincat_id)
+                    @if ($content and $course->ak_maincat_id == $i->ak_maincat_id)
                           <option value="{{ $i->ak_maincat_id }}" selected>{{ $i->ak_maincat_name }}</option>
                     @else
                           <option value="{{ $i->ak_maincat_id }}">{{ $i->ak_maincat_name }}</option>
@@ -24,7 +62,7 @@
             <select class="form-control" required name="subcat" id="subcat">
                 <option value="" hidden disabled selected>Sub Catagory</option> 
                 @foreach($subcat as $i)
-                    @if ($content and $course->ak_subcat_id) == $i->ak_subcat_id)
+                    @if ($content and $course->ak_subcat_id == $i->ak_subcat_id)
                           <option data-id="{{$i->ak_subcat_parent}}" value="{{ $i->ak_subcat_id }}" selected>{{ $i->ak_subcat_name }}</option>
                     @else
                           <option data-id="{{$i->ak_subcat_parent}}" value="{{ $i->ak_subcat_id }}">{{ $i->ak_subcat_name }}</option>
@@ -56,54 +94,40 @@
             </select>
         <div id="schedule">
             <label>Schedule</label>
-            <?php
-                $count = 1;    
-            ?>
-            <div id="schedule1" class="scheduleinput">
-                <div class="form-group row">
-                    <div class="col-md-5">
-                        <input class="form-control" required name="day1" id="day1" type="text" 
-                            @if($content)
-                                value="{{$i->ak_course_schedule_day}}"
-                            @endif>
-                    </div>
-                    <div class="col-md-5">
-                        <input class="form-control" required name="time1" id="time1" type="text" 
-                            @if($content)
-                                value="{{$i->ak_course_schedule_time}}"
-                            @endif>
-                    </div>
-                    <div class="col-md-2">
-                        {{-- <input type="button" class="btndelete" id="btn1" value="x"> --}}
-                    </div>
-                </div>
-            </div>
             @if($content)
                 @foreach($schedules as $i)
-                    <?php
-                        $count++; 
-                    ?>    
-                        <div id="{{"schedule".$count}}" class="scheduleinput">
+                        <div id="{{"schedule".$i->ak_course_schedule_id}}" class="scheduleinput">
                             <div class="form-group row">
                                 <div class="col-md-5">
-                                    <input class="form-control" required name="{{"day".$count}}" id="{{"day".$count}}" type="text"
+                                    <input class="form-control" required name="oldday[{{$i->ak_course_schedule_id}}]" type="text"
                                         value="{{$i->ak_course_schedule_day}}"
                                     >
                                 </div>
                                 <div class="col-md-5">
-                                    <input class="form-control" required name="{{"time".$count}}" id="{{"time".$count}}" type="text" 
+                                    <input class="form-control" required name="oldtime[{{$i->ak_course_schedule_id}}]" type="text" 
                                         value="{{$i->ak_course_schedule_time}}"
                                     >
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="button" class="btndelete" id="{{"btn".$count}}" value="x">
                                 </div>
                             </div>
                         </div>
                 @endforeach
+            @else
+            <div id="schedule1" class="scheduleinput">
+                <div class="form-group row">
+                    <div class="col-md-5">
+                        <input class="form-control" required name="day[1]" id="day1" type="text" placeholder="Hari">
+                    </div>
+                    <div class="col-md-5">
+                        <input class="form-control" required name="time[1]" id="time1" type="text" placeholder="Waktu">
+                    </div>
+                    <div class="col-md-2">
+                    </div>
+                </div>
+            </div>
             @endif
         </div>
-        <input type="hidden" name="jmlschedule" id="jml" value="{{$count}}"> 
         <div class="form-group">
             <button class="btn btn-primary" id="addschedule">Add Schedule</button>
         </div>
@@ -135,8 +159,9 @@
         <div class="form-group">
             <button type="submit" class="btn btn-primary">SUBMIT</button>
         </div>
-        <div class="form-group">
-            <button type="reset" class="btn btn-primary">RESET</button>
-        </div>
-
+        @if($content)
+            <div class="form-group">
+                <button type="reset" class="btn btn-primary">RESET</button>
+            </div>
+        @endif
         <!-- End the Copas -->

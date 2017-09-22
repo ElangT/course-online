@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Provider;
-use App\Region;
-use App\Province;
 use App\ProviderImg;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
@@ -92,26 +90,47 @@ class ProviderController extends Controller
      * @param  \App\Provider  $provider
      * @return \Illuminate\Http\Response
      */
+    public function passwordedit()
+    {
+        return view('auth.provider-password');
+    }
+    public function passwordupdate(Request $request)
+    {
+            $this->validate($request, [
+                'password' => 'required|confirmed',
+            ]);
+            $credentials = $request->only(
+                    'password', 'password_confirmation'
+            );
+            $user = \Auth::user();
+            $user->ak_provider_password = bcrypt($credentials['password']);
+            $user->save();
+            return redirect('provider/dashboard');
+
+    }
     public function edit(Provider $provider)
     {
-        // 'ak_provider_firstname',
-        // 'ak_provider_lastname',
-        // 'ak_provider_email',
-        // 'ak_provider_password',
-        // 'ak_provider_region',
-        // 'ak_provider_address',
-        // 'ak_provider_zipcode',
-        // 'ak_provider_description',
-        // 'ak_provider_telephone'
 
         $provider = Provider::find(Auth::id());
 
-        $province = Province::all();
-        $region = Region::all();
+        $query = DB::table('ak_province')
+                    ->select('*');
+        $province = $query->get();
+        $query = DB::table('ak_region')
+                    ->select('*');
+        $region = $query->get();
+        $providerprov = DB::table('ak_region')
+                        ->where('ak_region_id', '=', $provider->ak_provider_region)
+                        ->select('ak_region_prov_id')
+                        ->first();
+        $content = true;
 
         return view('provider-edit')
                 ->with('province', $province)
-                ->with('region', $region);
+                ->with('region', $region)
+                ->with('provider', $provider)
+                ->with('content', $content)
+                ->with('proprov', $providerprov->ak_region_prov_id);
         
     }
 
@@ -122,9 +141,36 @@ class ProviderController extends Controller
      * @param  \App\Provider  $provider
      * @return \Illuminate\Http\Response
      */
+
     public function update(Request $request, Provider $provider)
     {
-        //
+        $this->validate($request, [
+            'firstname' => 'max:255',
+            'lastname' => 'max:255',
+            'email' => 'email|max:255|unique:ak_user,ak_user_email',
+            'region' => 'max:11',
+            'zipcode' => 'max:5',
+            'telephone' => 'max:13',
+        ]);
+
+        $cek = Provider::where('ak_provider_email', '=', $request->email)
+                        ->first();
+        if($cek and $cek->ak_provider_id !== Auth::id()){
+            return Redirect::back()->withErrors(['email', 'The email has already been taken.']);
+        }
+
+        $provider = Provider::find(Auth::id());
+        $provider->ak_provider_firstname = $request->firstname;
+        $provider->ak_provider_lastname = $request->lastname;
+        $provider->ak_provider_email = $request->email;
+        $provider->ak_provider_region = $request->region;
+        $provider->ak_provider_address = $request->address;
+        $provider->ak_provider_zipcode = $request->zipcode;
+        $provider->ak_provider_description = $request->description;
+        $provider->ak_provider_telephone = $request->telephone;
+        $provider->save();
+
+        return redirect('/provider/dashboard');
     }
 
     public function changePict(Request $request)

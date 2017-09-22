@@ -47,22 +47,20 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
 
-        <input data-minchars=0 class="awesomplete awesomplete-space-item sharp-box height-med" list="agelist" type="text" name="age" id="age" value="<?php getValue($age); ?>" placeholder="Umur"/>
-        <datalist id="agelist">
+        <select data-minchars=0 class="awesomplete awesomplete-space-item sharp-box height-med" list="agelist" type="text" name="age" id="age" value="<?php getValue($age); ?>" placeholder="Umur">
             <option>Anak-Anak</option>
             <option>Remaja</option>
             <option>Dewasa</option>
-        </datalist>
+        </select>
 
     </div>
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
 
-        <input data-minchars=0 class="awesomplete awesomplete-space-item sharp-box height-med" list="levellist" type="text" name="level" id="level" value="<?php getValue($level); ?>" placeholder="Level"/>
-        <datalist id="levellist">
+        <select data-minchars=0 class="awesomplete awesomplete-space-item sharp-box height-med" list="levellist" type="text" name="level" id="level" value="<?php getValue($level); ?>">
             <option>Pemula</option>
             <option>Menengah</option>
             <option>Mahir</option>
-        </datalist>
+        </select>
 
     </div>
 </form>

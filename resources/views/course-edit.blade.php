@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="panel">
-        <form method="POST" action="{{url('provider/editcourse/'.$course->ak_provider_id)}}">
+        <form method="POST" action="{{url('provider/editcourse/'.$course->ak_course_id)}}">
         {{ csrf_field() }}
         {{ method_field('PUT') }}
         @include('partial.course-form');
@@ -24,6 +24,32 @@ sel22.html(options);
 
     $('#level option[value='+{{$course->ak_course_level_id}}+']').attr('selected', true);
     $('#age option[value='+{{$course->ak_course_age_id}}+']').attr('selected', true);
-    
+
+sel11 = $('#maincat');
+sel22 = $('#subcat');
+sel11.change(function() {
+    if ($(this).data('options') == undefined) {
+    /*Taking an array of all options-2 and kind of embedding it on the select1*/
+        $(this).data('options', $('#subcat option').clone());
+    }
+    var id = $(this).val();
+    var options = $(this).data('options').filter('[data-id=' + id + ']');
+    sel22.html(options);
+});
+
+
+$('button[type=reset]').on('mouseup', function() {
+    setTimeout(function() {
+    if (sel11.data('options') == undefined) {
+    // Taking an array of all options-2 and kind of embedding it on the select1
+        sel11.data('options', $('#subcat option').clone());
+    }
+    var id = sel11.val();
+    var options = sel11.data('options').filter('[data-id=' + id + ']');
+    sel22.html(options);
+    sel22.val({{$course->ak_subcat_id}});
+    }, 100);
+});
+
 </script>
 @endsection

@@ -1,4 +1,18 @@
 
+<?php
+  $loginroute = 'login';
+  $regisroute = 'register';
+  $logoutroute = 'logout';
+  if(Auth::guest() && !Auth::guard('provider')->check() && strpos(Route::currentRouteName(), 'provider') !== false){
+    $loginroute = 'provider.login';
+    $regisroute = 'provider.register';
+  }
+  if(Auth::guard('provider')->check()){
+    $logoutroute = 'provider.logout';
+  }
+
+?>
+
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <!-- CONTAINER -->
       <div class="container">

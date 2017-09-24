@@ -1,8 +1,8 @@
+
 @extends('layouts.master')
 @section('additional-css')
   <link href="{{ asset('/css/index.css')}}" rel="stylesheet" type="text/css">
 @endsection
-@section('content')
 <!-- <form method="POST" action="{{url('search')}}">
     {{ csrf_field() }}
     <div class="form-inline row space">
@@ -29,11 +29,14 @@
         </div>
     </div>
 </form> -->
+@section('header')
 <header>
   <form action="{{url('/search')}}">
     <button class="btn btn-kursusin" id="search-button" type="submit" value="Go to Google">Cari Kursusin Sekarang</button>
 </form>
 </header>
+@endsection
+@section('content')
 <section id="description">
   <div class="container">
     <h3>Kursusin</h3>

@@ -7,7 +7,6 @@ use DB;
 use App\Course;
 use App\CourseDetail;
 use App\CourseSchedule;
-use App\Facility;
 use App\Provider;
 use App\ProviderImg;
 use App\Region;
@@ -191,43 +190,78 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function show($id)
     {
-        $course = Course::find($id);
-        if(!$course)
-            return redirect('/');
+        $course = Course::findOrFail($id);
 
-        $detail     = CourseDetail::where('ak_course_detail_id', $course->ak_course_id)->first();
-        $schedules  = CourseSchedule::where('ak_course_schedule_detid', $detail->ak_course_detail_id)->get();
-        // dd($schedules);
-        $facilities = Facility::where('ak_course_facility_detid', $detail->ak_course_detail_id)->get();
+        $course     = DB::table('ak_course')
+                        ->join('ak_course_detail', 'ak_course.ak_course_id', 'ak_course_detail.ak_course_id')
+                        ->join('ak_sub_category', 'ak_course_cat_id', 'ak_subcat_id')
+                        ->join('ak_main_category', 'ak_subcat_parent' ,'ak_maincat_id')
+                        ->join('ak_course_level', 'ak_course_detail_level','ak_course_level_id')
+                        ->join('ak_course_age', 'ak_course_detail_age', 'ak_course_age_id')
+                        ->select('*')
+                        ->where('ak_course.ak_course_id', $id)->first();
+
+        $schedules  = CourseSchedule::where('ak_course_schedule_detid', $course->ak_course_detail_id)->get();
+        $facilities = DB::table('ak_course_facility')
+                            ->join('ak_facility_type', 'ak_course_facility.ak_facility_type_id', 'ak_facility_type.ak_facility_type_id')
+                            ->get();
         $query = DB::table('ak_course')
                     ->join('ak_provider', 'ak_provider.ak_provider_id', '=', 'ak_course.ak_course_prov_id')
                     ->join('ak_provider_img', 'ak_provider_img.ak_provider_id', '=', 'ak_provider.ak_provider_id')
                     ->join('ak_region', 'ak_region.ak_region_id', '=', 'ak_provider.ak_provider_region')
-                    ->select('ak_course.ak_course_id', 'ak_course.ak_course_name', 'ak_provider.ak_provider_firstname', 'ak_provider.ak_provider_lastname', 'ak_provider.ak_provider_address', 'ak_provider.ak_provider_zipcode', 'ak_provider.ak_provider_telephone', 'ak_provider_img.ak_provider_img_path', 'ak_region.ak_region_cityname', 'ak_region.ak_region_name', 'ak_region.ak_region_namefull')
+                    ->select('ak_provider.ak_provider_firstname', 'ak_provider.ak_provider_description', 'ak_provider.ak_provider_lastname', 'ak_provider.ak_provider_address', 'ak_provider.ak_provider_zipcode', 'ak_provider.ak_provider_telephone', 'ak_provider.ak_provider_email', 'ak_provider_img.ak_provider_img_path', 'ak_region.ak_region_cityname', 'ak_region.ak_region_name', 'ak_region.ak_region_namefull')
                     ->where('ak_course.ak_course_id', '=', $id);
-        $result     = $query->first();
+        $provider     = $query->first();
         $tran = Transaction::where('ak_tran_saction_user', '=', Auth::id())
                             ->where('ak_tran_saction_course', '=', $id)
                             ->first();
         $bought = ($tran !== null && $tran->ak_tran_saction_status === 1);
+
+        $message = "";
         $trolled = false;
-        if(Session::has('orders') && in_array($detail->ak_course_detail_id,  Session::get('orders'))){
+        if(Session::has('orders') && in_array($course->ak_course_detail_id,  Session::get('orders'))){
+            $message="Course sudah di trolli";
             $trolled = true;
         }
-        // dd($trolled);
-        return view('course_detail', [
+        elseif(Auth::check() && $bought){
+            $message="Course sudah dibeli";
+        }
+        elseif($course->ak_course_open === 0 or $course->ak_course_active === 9){
+            $message="Course sudah penuh";
+        }
+        else{
+            $message="Login untuk membeli course";
+        }
+
+
+        return view('course-detail', [
             'course' => $course,
-            'result' => $result,
-            'detail' => $detail,
+            'provider' => $provider,
             'schedules' => $schedules,
             'facilities' => $facilities,
             'transaction' => $tran,
+            'message' => $message,
             'trolled' => $trolled,
             'bought' => $bought,
         ]);
     }
+
+
+    public function addtocart (Request $request, $id) {
+        if(!(Session::has('orders')))
+        {
+            Session::put('orders', [$request->courseid]);
+            Session::put('schedule', [$request->schedule]);
+        } else {
+            Session::push('orders', $request->courseid);
+            Session::push('schedule', $request->schedule);
+        }
+        return redirect('courses/'.$id);
+    }
+
 
     /**
      * Show the form for editing the specified resource.

@@ -1,19 +1,30 @@
-$(".addToCart").click(function(e){
-    e.preventDefault();
-    console.log(parseInt($('select[name=schedule]').val()));
-        $.ajax({
-            url: url + '/addtocart',
-            type: 'POST',
-            data: { "_token" : $('input[name=_token]').val(),
-                    'course_id' : parseInt(course_id),
-                    'schedule_id' : parseInt($('select[name=schedule]').val())},
-            success: function(data) {
-            console.log(data);
-            $('.addToCartForm').hide();
-			$('#cartadded').show();
-            }
-        });  
-});
+// $(".addToCart").click(function(e){
+//     var url = {!! '"'.url('/').'"' !!};
+//     var course_id = {{$course->ak_course_id}};
+//     $.ajaxSetup({
+//     headers: {
+//             'X-CSRF-TOKEN': $('input[name="_token"]').val()
+//         }
+//     });
+
+
+//     e.preventDefault();
+//     console.log($('input[name=schedule]').val());
+//         $.ajax({
+//             url: url + '/addtocart',
+//             type: 'POST',
+//             data: { "_token" : $('input[name=_token]').val(),
+//                     'course_id' : parseInt(course_id),
+//                     'schedule_id' : parseInt($('input[name=schedule]').val())},
+//             success: function(data) {
+//             console.log(data);
+//             $('.addToCartForm').hide();
+//             $('#cartadded').show();
+//             }
+//         });  
+// });
+
+
 
 $("#addschedule").click(function(e){
     e.preventDefault();

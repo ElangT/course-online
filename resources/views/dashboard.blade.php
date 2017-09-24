@@ -3,11 +3,10 @@
 @section('content')
 <h1>Manage Class/Course</h1>
 <div class="panel"> 
-<img src="{{ asset('images/'.$image) }}" class="img-thumbnail" alt="Cinque Terre" width="304" height="236">
+<img src="{{ asset('images/'.$image) }}" class="img-thumbnail img-responsive" width="304" height="236">
 <a href="{{route('course.create')}}">Create Course</a>
 <a href="{{route('provider.edit')}}">Change Profile</a>
 <a href="{{route('provider.passwordedit')}}">Change Password</a>
-
         <form action="{{ route('provider.image.upload') }}" enctype="multipart/form-data" method="POST">
             {{ csrf_field() }}
             <input type="file" name="image" />
@@ -23,7 +22,7 @@
     <div class="panel panel-danger sharp-box space-item course">
         <div class="panel-body row">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                <img src="{{ asset('images/'.$image) }}">
+                <img class="img-thumbnail img-responsive" src="{{ asset('images/'.$image) }}">
             </div>
             <div class="parent col-lg-8 col-md-8 col-sm-8 col-xs-8">
                 <h1 class=""><a href="{{ URL::to('/courses/' . $course->ak_course_id) }}">{{ $course->ak_course_name }}</a></h1>

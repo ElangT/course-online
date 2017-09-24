@@ -121,7 +121,8 @@ p.footer-links a{
 	min-height: 20vh;
 }
 .input-newsletter {
-    width: 400px;
+    max-width: 400px;
+    min-width: 380px;
     padding: 5px;
 }
 

@@ -1,3 +1,12 @@
+body {
+	min-width: 405px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
 #content{
 	padding-top: 50px;
 }
@@ -165,11 +174,6 @@
 	vertical-align: middle;
 }
 
-.course img {
-	height: 200px;
-	width: 150px;
-}
-
 .course h1 {
 	font-size: 1.4em;
 }
@@ -190,6 +194,11 @@
 .red {
 	color: red;
 }
+
+.blue {
+	color: blue;
+}
+
 
 .result-text {
 	text-align: center;

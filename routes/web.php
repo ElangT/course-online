@@ -22,7 +22,9 @@ Route::post('/search', 'SearchController@search');
 
 Route::get('/courses/{id}', ['uses'=>'CourseController@show']);
 
-Route::get('/checkout', 'SnapController@snap');
+Route::post('/courses/{id}', 'CourseController@addtocart');
+
+Route::get('/checkout', 'SnapController@snap')->name('checkout');
 
 Route::get('/snaptoken', 'SnapController@token')->middleware('ajax');
 
@@ -35,8 +37,6 @@ Route::post('/payment/finish', 'SnapController@finish');
 Route::post('/payment/unfinish', 'SnapController@unfinish');
 
 Route::post('/payment/error', 'SnapController@error');
-
-Route::post('/addtocart', 'SnapController@addtocart');
 
 Route::get('/snapreset', 'SnapController@reset');
 

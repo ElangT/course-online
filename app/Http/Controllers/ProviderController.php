@@ -48,7 +48,7 @@ class ProviderController extends Controller
                         ->where('ak_course_schedule_detid', '=', $key->ak_course_detail_id);
             $key->schedule = $query->get();
         }
-        return view('provider')
+        return view('dashboard')
             ->with('courses', $courses)
             ->with('image', $img->ak_provider_img_path);
     }

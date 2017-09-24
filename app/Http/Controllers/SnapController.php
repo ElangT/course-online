@@ -59,34 +59,6 @@ class SnapController extends Controller
         return view('snap_checkout')->with('cart', $cart);
     }
 
-    public function addtocart (Request $request) {
-        // $orders = session('orders', []);
-        // $total = session('total', 0);
-        // $course_id = $request->course_id;
-
-        // if(!in_array($course_id, $orders)){
-        //     array_push($orders, $course_id);
-
-        //     $course = Course::find($course_id);
-        //     $detail = CourseDetail::where('ak_course_id', $course_id)->first();
-        //     $total += $detail->ak_course_detail_price;
-
-        //     session([
-        //         'orders'   => $orders,
-        //         'total'    => $total
-        //     ]);
-
-        if(!(Session::has('orders')))
-        {
-            Session::put('orders', [$request->course_id]);
-            Session::put('schedule', [$request->schedule_id]);
-        } else {
-            Session::push('orders', $request->course_id);
-            Session::push('schedule', $request->schedule_id);
-        }
-        return ($request->course_id);
-    }
-
     public function removefromcart (Request $request) {
         return 'false';
     }
@@ -218,19 +190,19 @@ class SnapController extends Controller
     public function finish(Request $request)
     {
         $res = $this->savetrans($request);
-        return view('payment_finish')->with('snap', $res)->with('request', $request);
+        return view('payment-finish')->with('snap', $res)->with('request', $request);
     }
 
     public function unfinish (Request $request)
     {
         $res = $this->savetrans($request);
-        return view('payment_unfinish')->with('snap', $res)->with('request', $request);
+        return view('payment-unfinish')->with('snap', $res)->with('request', $request);
     }
 
     public function error (Request $request)
     {
         $res = $this->savetrans($request);
-        return view('payment_error')->with('snap', $res)->with('request', $request);
+        return view('payment-error')->with('snap', $res)->with('request', $request);
     }
 
 }    

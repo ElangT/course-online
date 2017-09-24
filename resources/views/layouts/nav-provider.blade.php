@@ -6,31 +6,31 @@
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar">Dashboard</span>
           </button>
-			    <a class="navbar-brand" href="{{url('/')}}">Kursusin</a>
+          <a class="navbar-brand" href="{{url('/')}}">Kursusin</a>
         </div>
 
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-              @if (Auth::guest())
-                <li><a href="{{route('checkout')}}"></a></li>
+              @if (Auth::guard('provider')->check())
+                <li><a href="{{route('provider.dashboard')}}">Dashboard</a></li>
               @endif
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
-      			<li>
-			        <div class='panel-custom'>
-  		          @if (Auth::guest())
-                  <li><a class="sign-in" href="{{ route('login') }}">Masuk</a></li>
+            <li>
+              <div class='panel-custom'>
+                @if (Auth::guest() && !Auth::guard('provider')->check())
+                  <li><a class="sign-in" href="{{ route('provider.login') }}">Masuk</a></li>
                   <li>
-                    <form action="{{ route('register') }}">
+                    <form action="{{ route('provider.register') }}">
                         <button class="btn btn-kursusin sign-up" id="search-button" type="submit" >Daftar</button>
                     </form>
                 @else
-                  <li><a  href="{{ route('logout') }}"
+                  <li><a  href="{{ route('provider.logout') }}"
                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                       Logout
                     </a>
-                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                      <form id="logout-form" action="{{ route('provider.logout') }}" method="POST" style="display: none;">
                         {{ csrf_field() }}
                       </form>
                   </li>
@@ -41,3 +41,4 @@
         </div><!--/.nav-collapse -->
       </div><!-- END OF CONTAINER -->
     </nav>
+

@@ -35,16 +35,21 @@
     </script>
     <!-- Bootstrap Core CSS -->
 </head>
-        @include('layouts.nav')
-
-        @yield('content')
+        @if(strpos(Route::currentRouteName(), 'provider') !== false or Auth::guard('provider')->check())
+            @include('layouts.nav-provider')
+        @else
+            @include('layouts.nav')
+        @endif
+        @yield('header')
+        <div class="container" id="content">
+            @yield('content')
+        </div>
         <!-- <div class="search-form">
             <div class="search-layout">
             </div>
         </div> -->
 
         @include('layouts.footer')
-
     <!-- jQuery -->
     <script src="{{ asset('/vendor/jquery/jquery.min.js')}}"></script>
 
@@ -52,6 +57,7 @@
     <script src="{{ asset('/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('/js/awesomplete.js')}}" async></script>
     <script src="{{ asset('/js/kursusin.js')}}"></script>
+    @yield('additional-js')
 
     <!-- Plugin JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>

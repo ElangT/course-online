@@ -43,34 +43,59 @@
 		@endif
 	</div>
 	</div>
-	<div class="space row course panel panel-default">
-		<div class="col-lg-1 col-md-1 col-sm-0 col-xs-0"></div>
-		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-			<h2>Detail Kursus</h2>
+	<div class="space row course">
+		<div id="sidebar" class="col-lg-3 col-md-3 col-sm-0 col-xs-0">
+			<p>Kursus
+				<a href="#deskripsi-kursus">Deskripsi</a>
+				<a href="#lokasi-kursus">Lokasi</a>
+				<a href="#detail-kursus">Detail</a>
+			</p>
+			<p>Provider
+				<a href="#deskripsi-provider">Deskripsi</a>
+				<a href="#kontak-provider">Provider</a>
+			</p>
+		</div>
+		<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 gray">
+			<a class="anchor"  id="deskripsi-kursus"></a>
+			<h2><strong>Deskripsi</strong></h2>
 			<p class="margin-down-sml">{{ $course->ak_course_detail_desc }}</p>
-		</div>
-		<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-			<p>Alamat		: 	{{ $provider->ak_provider_address }}</p>
+			<a class="anchor"  id="detail-kursus"></a>
+			<a class="anchor"  id="deskripsi-kursus"></a>
+			<h2 id="lokasi-kursus"><strong>Lokasi</strong></h2>
+			<p>Alamat		: 	{{$provider->ak_provider_address }}</p>
 			<p>Daerah		:	{{$provider->ak_region_namefull}},	{{$provider->ak_region_cityname}}</p>
-			<p>Sisa Kursi	:	{{$course->ak_course_detail_size - $course->ak_course_detail_seat}}</p>
-		</div>
-	</div>
-	<div class="space row course panel panel-default">
-		<div class="col-lg-1 col-md-1 col-sm-0 col-xs-0"></div>
-		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-			<h2>Detail Provider</h2>
-			<p class="margin-down-sml">{{ $provider->ak_provider_description }}</p>
-		</div>
-		<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-			<p class="margin-down-sml">{{ $provider->ak_provider_description }}</p>
 			<p>Kode Post	:	{{ $provider->ak_provider_zipcode }}</p>
-			<p>Nama			:	{{ $provider->ak_provider_firstname }} {{$provider->ak_provider_lastname}}</p>
-			<p>Email 		: 	{{ $provider->ak_provider_email }}</p>
-			<p>No Telp  	: 	{{ $provider->ak_provider_telephone }}</p>
+			<h2 id="detail-kursus"><strong>Detail</strong></h2>
+			<p>Sisa Kursi	:	{{$course->ak_course_detail_size - $course->ak_course_detail_seat}}</p>
+			<p>Fasilitas	:</p>
+			@foreach($facilities as $facility)
+				<p>			{{$facility->ak_facility_type_name_idn}}</p>
+			@endforeach
+		<a class="anchor"  id="deskripsi-provider"></a>
+		<h2><strong>Tentang Provider</strong></h2>
+
+		<div class="gray-box panel panel-default row">
+			<div>
+				<p><strong>Deskripsi Provider</strong></p>
+
+					<p class="margin-down-sml">{{ $provider->ak_provider_description }}</p>
+				<hr/>
+				<a class="anchor"  id="kontak-provider"></a>
+				<p><strong>Kontak Provider</strong></p>
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+					<p>Nama</p>
+					<p>Email</p>
+					<p>No Telp</p>
+				</div>
+				<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+					<p>{{ $provider->ak_provider_firstname }} {{$provider->ak_provider_lastname}}</p>
+					<p>{{ $provider->ak_provider_email }}</p>
+					<p>{{ $provider->ak_provider_telephone }}</p>
+				</div>
+			</div>
 		</div>
 	</div>
-</div>
-</div>
+	</div>
 @endsection
 @section('additional-js')
 <script type="application/javascript">

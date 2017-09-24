@@ -207,6 +207,7 @@ class CourseController extends Controller
         $schedules  = CourseSchedule::where('ak_course_schedule_detid', $course->ak_course_detail_id)->get();
         $facilities = DB::table('ak_course_facility')
                             ->join('ak_facility_type', 'ak_course_facility.ak_facility_type_id', 'ak_facility_type.ak_facility_type_id')
+                            ->where('ak_course_facility_detid', $course->ak_course_detail_id)
                             ->get();
         $query = DB::table('ak_course')
                     ->join('ak_provider', 'ak_provider.ak_provider_id', '=', 'ak_course.ak_course_prov_id')
@@ -230,7 +231,7 @@ class CourseController extends Controller
             $message="Course sudah dibeli";
         }
         elseif($course->ak_course_open === 0 or $course->ak_course_active === 9){
-            $message="Course sudah penuh";
+            $message="Course sudah ditutup";
         }
         else{
             $message="Login untuk membeli course";

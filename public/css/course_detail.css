@@ -10,9 +10,8 @@ p strong{
 }
 
 .gray-box{
-	background-color: rgb(240, 240, 240);
 	padding-left: 10px;
-	margin-top: 20px;
+	margin-top: 30px;
 	margin: 10px;
 }
 
@@ -23,4 +22,57 @@ hr {
     border-top: 1px solid #ccc;
     margin: 1em 0;
     padding: 0;
+}
+
+
+/*Sidebar*/
+#scrolling-sidebar {
+    /*width:300px;*/
+    float:left;
+}
+
+#content {
+/*    width:724px;
+    float:right;
+    padding-left:24px;
+*/}
+
+/* navigation */
+#scrolling-navbar {
+/*    width:300px;
+    background-color:rgb(240,240,240);
+    border:solid 1px rgb(220,220,220);
+    padding:0 12px;
+*/}
+
+#scrolling-navbar.stick {
+    position: fixed;
+    top: 0;
+    z-index: 10000;
+    margin-top:12px;
+}
+
+#scrolling-navbar ul {
+    list-style-type:none;
+    margin:0;
+    padding:0;
+}
+
+#scrolling-navbar li {
+
+}
+
+#scrolling-navbar li a {
+    color:rgb(50,50,50);
+    font-weight:700;
+    padding-left: 10px;
+}
+
+#scrolling-navbar li p{
+    color:rgb(45,45,45);
+    font-size: 17px;
+}
+
+a.nav-active {
+    color:#ccc;
 }

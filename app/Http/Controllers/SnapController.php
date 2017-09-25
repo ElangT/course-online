@@ -25,14 +25,6 @@ class SnapController extends Controller
 
     public function snap ()
     {
-        // Session::flush();
-        // dd(Session::all());
-        // $populate = function ($id) {
-        //     $course = Course::find($id);
-        //     $course->detail = CourseDetail::where('ak_course_id', $course->ak_course_id)->first();
-        //     $course->image = ProviderImg::where('ak_provider_id', $course->ak_course_prov_id)->first();
-        //     return $course;
-        // };
         $populate = function ($id) {
             $schedule = CourseSchedule::find($id);
             $coursedetail = CourseDetail::find($schedule->ak_course_schedule_detid);
@@ -51,8 +43,6 @@ class SnapController extends Controller
             foreach ($cart as $key) {
                 $total += $key->detail->ak_course_detail_price;
             }
-        } else {
-            return back();
         }
         
         Session::put('total', $total);

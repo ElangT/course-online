@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('additional-css')
+<link href="{{asset('/css/checkout.css')}}" rel="stylesheet" type="text/css">
+@endsection
 @section('content')
     <script type="text/javascript"
                     src="https://app.sandbox.midtrans.com/snap/snap.js"
@@ -23,13 +26,23 @@
         <input type="hidden" name="result_data" id="result-data-e" value=""></div>
     </form>
     @if (empty($cart))
+    <div class="container row" id="not-found">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <img src="{{asset('img/confused.png') }}" class="center-block img-responsive">
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <h1 class="center-block">Anda belum memasukkan kursus ke trolli</h1>
+            <h2 class="center-block">Cari kursus sekarang</h2>
 
-    <div class="alert alert-warning" role="alert"><strong>Peringatan!</strong> Troli kosong</div>
-    
+        </div>
+    </div>
+    <div class="container panel panel-default center-block" id="search-form">
+        @include('search-form')
+    </div>
     @else
     @foreach($cart as $result)
         <div class="space row course">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">c
                 <img src="{{ asset('images/'.$result->image->ak_provider_img_path) }}">
             </div>
             <div class="parent col-lg-8 col-md-8 col-sm-8 col-xs-8">
@@ -56,7 +69,7 @@
             cache: false,
 
             success: function(data) {
-
+                console.log(data);
                 console.log('token = '+data);
                 
                 var resultType = document.getElementById('result-type');

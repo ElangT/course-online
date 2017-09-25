@@ -8,7 +8,7 @@
 <!-- 	<div class="alert alert-success" id="cartadded" role="alert"><strong>{{ $course->ak_course_name }}</strong> Masuk ke cart</div>
  -->
 	<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
-		<img src="{{asset('images/'.$provider->ak_provider_img_path) }}" class="img-thumbnail img-responsive">
+		<img src="{{asset('images/'.$provider->ak_provider_img_path) }}" class="img-responsive">
 	
 	</div>
 	<div class="parent col-lg-7 col-md-7 col-sm-12 col-xs-12">

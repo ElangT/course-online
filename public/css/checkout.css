@@ -1,0 +1,25 @@
+#not-found{
+	padding-left: 7vw;
+}
+#not-found h1{
+	padding-top: 14vh;
+	font-size: 6vh;
+
+	text-align: center;
+	font-size: 6.5vh;
+}
+
+h2{
+	text-align: center;
+	color: grey;
+	font-size: 5vh;
+
+}
+
+#search-form{
+	margin-top: 2vh;
+	padding: 0px;
+	border: solid;
+	border-radius: 25px;
+	border-color: rgb(245, 245, 245);
+}

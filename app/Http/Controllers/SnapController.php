@@ -88,7 +88,6 @@ class SnapController extends Controller
             ];
         };
         $items = array_map($populate, $order_id);
-
         // Populate customer details
         $customer = Customer::find(Auth::user()->ak_user_id);
         if($customer){
@@ -111,6 +110,7 @@ class SnapController extends Controller
 
         try
         {
+
             $midtrans = new Midtrans();
 
             session([

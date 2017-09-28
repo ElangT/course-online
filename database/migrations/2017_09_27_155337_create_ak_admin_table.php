@@ -17,7 +17,7 @@ class CreateAkAdminTable extends Migration {
 			$table->integer('ak_admin_id', true);
 			$table->string('ak_admin_username', 45);
 			$table->string('ak_admin_password');
-			$table->dateTime('ak_admin_last_activity')->default('0000-00-00 00:00:00');
+			$table->timestamp('ak_admin_last_activity')->default(DB::raw('CURRENT_TIMESTAMP'));
 			$table->string('remember_token', 100)->nullable();
 		});
 	}

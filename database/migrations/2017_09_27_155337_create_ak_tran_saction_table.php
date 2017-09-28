@@ -21,7 +21,7 @@ class CreateAkTranSactionTable extends Migration {
 			$table->integer('ak_tran_saction_schedule')->index('fk_ak_tran_saction_ak_schedule1');
 			$table->integer('ak_tran_saction_status')->index('fk_ak_tran_saction_ak_tran_status1_idx');
 			$table->string('ak_tran_saction_midtrans_id', 100)->nullable();
-			$table->primary(['ak_tran_saction_id','ak_tran_saction_user','ak_tran_saction_course']);
+			$table->primary(['ak_tran_saction_id','ak_tran_saction_user','ak_tran_saction_course'],'primary_ak_tran_saction');
 		});
 	}
 

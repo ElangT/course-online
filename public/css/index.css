@@ -31,3 +31,10 @@ section {
 #work-container {
   margin-top: 2em;
 }
+
+@media screen and (max-width: 728px) {
+    header #search-button {
+      margin: 30vh 33vw;
+      background-color: #0B4F7D;
+    }
+}

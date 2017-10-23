@@ -31,7 +31,7 @@
 </form> -->
 @section('header')
 <header>
-  <form action="{{url('/search')}}">
+  <form method="GET" action="{{url('/search')}}">
     <button class="btn btn-kursusin" id="search-button" type="submit" value="Go to Google">Cari Kursusin Sekarang</button>
 </form>
 </header>

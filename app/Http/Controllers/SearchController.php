@@ -70,7 +70,6 @@ class SearchController extends Controller
         $location = "%".strtolower($location)."%";
         $age = "%".strtolower($age)."%";
         $level = "%".strtolower($level)."%";
-
         $query = DB::table('ak_course')
                     ->join('ak_course_detail', 'ak_course.ak_course_id', '=', 'ak_course_detail.ak_course_id')
                     ->join('ak_course_level', 'ak_course_detail.ak_course_detail_level', '=', 'ak_course_level.ak_course_level_id')
@@ -108,7 +107,10 @@ class SearchController extends Controller
                     $query->where (function ($query) use ($level) {
                         return $query->whereRaw('LOWER(ak_course_level.ak_course_level_name) like ?', $level);
                     });
-        $courses = $query->get();
+
+        $courses = $query->paginate(2);
+        $courses->withPath('search');
+
         // if (count($courses) < 1) {
         //     $courses = [];
         // }

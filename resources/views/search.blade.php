@@ -29,6 +29,7 @@
         </div>
         <?php $result = $result + 1; ?>
         @endforeach
+        {{ $courses->links() }}
     </div>
     <?php if ($result > 0) {
     echo "<p class='result-text'>Returned ".$result." courses.</p>";

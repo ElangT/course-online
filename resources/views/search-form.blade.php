@@ -1,5 +1,4 @@
-<form method="POST" action="{{url('search')}}">
-    {{ csrf_field() }}
+<form method="GET" action="{{url('search')}}">
     <div class="form-inline row space">
         <?php function getValue($var){
         if (isset($var)) {
@@ -39,6 +38,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
             <select data-minchars=0 class="awesomplete awesomplete-space-item sharp-box height-med" list="agelist" type="text" name="age" id="age" value="<?php if (isset($age)): echo getValue($age); endif; ?>" placeholder="Umur">
+                <option value="">Pilih Umur</option>
                 <option>Anak-Anak</option>
                 <option>Remaja</option>
                 <option>Dewasa</option>
@@ -46,6 +46,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
             <select data-minchars=0 class="awesomplete awesomplete-space-item sharp-box height-med" list="levellist" type="text" name="level" id="level" value="<?php if (isset($level)): echo getValue($level); endif; ?>">
+                <option value="">Pilih Keahlian</option>
                 <option>Pemula</option>
                 <option>Menengah</option>
                 <option>Mahir</option>

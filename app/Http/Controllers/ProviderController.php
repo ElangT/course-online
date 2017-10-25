@@ -42,15 +42,44 @@ class ProviderController extends Controller
                     ->where('ak_provider_id' , '=', Auth::id());
 
         $img = $query->first();
+        $success = 0;
+        $pending = 0;
+        $fail = 0;
+        $excess = 0;
+
         foreach ($courses as $key) {
             $query = DB::table('ak_course_schedule')
                         ->select('ak_course_schedule_day', 'ak_course_schedule_time')
                         ->where('ak_course_schedule_detid', '=', $key->ak_course_detail_id);
             $key->schedule = $query->get();
+            $transaction = DB::table('ak_tran_saction')
+                            ->where('ak_tran_saction_course', $key->ak_course_id)
+                            ->select('ak_tran_saction_status')
+                            ->get();
+            foreach ($transaction as $i) {
+                if ($i->ak_tran_saction_status === 1) {
+                    $success+=1;
+                } elseif ($i->ak_tran_saction_status === 2) {
+                    $pending+=1;
+                } elseif ($i->ak_tran_saction_status == 3) {
+                    $fail+=1;
+                } else {
+                    $excess+=1;
+                }
+            }
+            $key->success=$success;
+            $key->pending=$pending;
+            $key->fail=$fail;
+            $key->excess=$excess;
         }
+        $query = DB::table('ak_provider')
+            ->where('ak_provider.ak_provider_id', Auth::id())
+            ->select('ak_provider.ak_provider_firstname','ak_provider.ak_provider_lastname');
+        $provider = $query->first();
         return view('dashboard')
             ->with('courses', $courses)
-            ->with('image', $img->ak_provider_img_path);
+            ->with('image', $img->ak_provider_img_path)
+            ->with('provider', $provider);
     }
 
     /**

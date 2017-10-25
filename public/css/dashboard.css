@@ -1,0 +1,64 @@
+#sidebar .profile-sidebar{
+  background: #00334A;
+  min-height: 60vh;
+  padding: 1em;
+  margin:10vh 0;
+  -webkit-box-shadow: 5px 3px 65px -13px rgba(0,0,0,0.75);
+  -moz-box-shadow: 5px 3px 65px -13px rgba(0,0,0,0.75);
+  box-shadow: 5px 3px 65px -13px rgba(0,0,0,0.75);
+}
+#sidebar img {
+  margin: 0 auto;
+}
+.profile-usertitle {
+  text-align: center;
+  padding: 0.6em;
+  color: white;
+}
+.profile-usertitle-name{
+  font-size: 1.5em;
+  font-weight: 600;
+}
+.profile-usertitle-job{
+  font-size: 1em;
+  font-weight: lighter;
+}
+
+#sidebar .nav>li>a{
+  color : #b1b1b2;
+}
+#sidebar .nav>li>a:hover{
+  color : #00334A;
+}
+
+#sidebar .nav li i{
+  padding-right: 5px;
+}
+
+#nav-title {
+  padding: 1.5em 0;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: white;
+}
+
+.space .course .course-title a{
+  text-transform: uppercase;
+  color: #00334A;
+  font-weight: 700;
+}
+
+.space .panel-setting a{
+  padding-left: 15px;
+  color :#00334A;
+}
+.space .panel-setting a:hover{
+  color :#0B4F7D;
+}
+.glyphicon-tags {
+  color: #307499;
+  padding-right: 10px;
+}
+.space .price {
+  font-weight: bold;
+}

@@ -1,7 +1,0 @@
-[05-May-2017 10:08:46 UTC] PHP Parse error:  syntax error, unexpected '.', expecting '&' or variable (T_VARIABLE) in /home/u4961431/public_html/kursusin/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 480
-[05-May-2017 10:08:46 UTC] PHP Parse error:  syntax error, unexpected '.', expecting '&' or variable (T_VARIABLE) in /home/u4961431/public_html/kursusin/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 480
-[05-May-2017 10:08:46 UTC] PHP Parse error:  syntax error, unexpected '.', expecting '&' or variable (T_VARIABLE) in /home/u4961431/public_html/kursusin/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 480
-[05-May-2017 10:08:49 UTC] PHP Parse error:  syntax error, unexpected '.', expecting '&' or variable (T_VARIABLE) in /home/u4961431/public_html/kursusin/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 480
-[11-May-2017 10:53:38 UTC] PHP Fatal error:  Class 'Phar' not found in /opt/cpanel/composer/bin/composer on line 23
-[11-May-2017 10:53:42 UTC] PHP Fatal error:  Class 'Phar' not found in /opt/cpanel/composer/bin/composer on line 23
-[11-May-2017 10:54:00 UTC] PHP Fatal error:  Class 'Phar' not found in /opt/cpanel/composer/bin/composer on line 23

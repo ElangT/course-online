@@ -1,2 +1,0 @@
-[05-May-2017 01:59:26 UTC] PHP Notice:  Undefined variable: factory in /home/u4961431/public_html/kursusin/main/database/factories/ModelFactory.php on line 15
-[05-May-2017 01:59:26 UTC] PHP Fatal error:  Call to a member function define() on a non-object in /home/u4961431/public_html/kursusin/main/database/factories/ModelFactory.php on line 15

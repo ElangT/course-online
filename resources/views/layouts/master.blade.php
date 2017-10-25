@@ -35,6 +35,7 @@
     </script>
     <!-- Bootstrap Core CSS -->
 </head>
+<body>
         @if(strpos(Route::currentRouteName(), 'provider') !== false or Auth::guard('provider')->check())
             @include('layouts.nav-provider')
         @else

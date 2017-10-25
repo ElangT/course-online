@@ -1,0 +1,79 @@
+PENDING
+  "va_numbers": [
+    {
+      "va_number": "00060318078",
+      "bank": "bca"
+    }
+  ],
+  "transaction_time": "2017-08-20 14:42:20",
+  "transaction_status": "pending",
+  "transaction_id": "7a4d3502-1189-4566-a633-38c1bd39a255",
+  "status_message": "Veritrans payment notification",
+  "status_code": "201",
+  "signature_key": "8d9334e6afff6d5dd3e50ce2bcf985bd3c070c754a217195000c307c2229d72c28527356cb05dfda8dd02e4ea5bcf14917112488819b5e92fe0aebf2957507a0",
+  "payment_type": "bank_transfer",
+  "payment_amounts": [
+
+  ],
+  "order_id": "59993d515fe4b",
+  "gross_amount": "100000.00",
+  "fraud_status": "accept"
+
+CAPTURE/SUCCESS
+  "transaction_time": "2017-08-20 16:48:06",
+  "transaction_status": "capture",
+  "transaction_id": "98b5570d-1c47-43ad-9aae-39d83aac8244",
+  "status_message": "Veritrans payment notification",
+  "status_code": "200",
+  "signature_key": "1bb45a966958779a29367a4bd493400d197c169cc8b6471fef7e2c0ad823ed4a6e5a91a369802f769492ed9777261c0b336b5b650a012bfa36632a1d88efb45b",
+  "payment_type": "credit_card",
+  "order_id": "59995abf0eb22",
+  "masked_card": "481111-1114",
+  "gross_amount": "100000.00",
+  "fraud_status": "accept",
+  "bank": "mandiri",
+  "approval_code": "1503222487029"
+
+EXPIRE/CANCEL
+  "transaction_time": "2017-08-20 16:03:17",
+  "transaction_status": "expire",
+  "transaction_id": "5ae46c18-b322-4741-8ac6-22cfa4699884",
+  "status_message": "Veritrans payment notification",
+  "status_code": "202",
+  "signature_key": "7a08dbfc71e42b1b2ba772797eef41a4223ae27c5425cad7540ddccbebce0ca502139366e04f720d09647ea5f0fd7abb0be7489573290680ff93d9a4a8faee42",
+  "payment_type": "echannel",
+  "order_id": "5999504bf3032",
+  "gross_amount": "100000.00",
+  "fraud_status": "accept",
+  "biller_code": "70012",
+  "bill_key": "249305197451"
+
+
+SETTLEMENT
+  "status_message": "Veritrans payment notification",
+  "transaction_id": "e5a4c315-793c-49a5-aca4-7b546365f38d",
+  "fraud_status": "accept",
+  "approval_code": "1499984651317",
+  "transaction_status": "settlement",
+  "status_code": "200",
+  "signature_key": "9586742b052bc401c0d9d05d6fb93ba38c7412c0e424c1ff8ef7beca8f8dbb4eaf07890afd96f428f815c7941163bf3890788a90aa23d2fc94077fd893325f5d",
+  "gross_amount": "22222.00",
+  "payment_type": "credit_card",
+  "bank": "mandiri",
+  "masked_card": "481111-1114",
+  "transaction_time": "2017-07-14 05:24:09",
+  "order_id": "5967f2f28c946"
+
+CAMCEL
+  "transaction_time": "2017-08-20 15:03:15",
+  "transaction_status": "cancel",
+  "transaction_id": "2ac8d820-b699-4761-aae4-b08502b64d4c",
+  "status_message": "Veritrans payment notification",
+  "status_code": "202",
+  "signature_key": "ea010162f8adca01b7e7fe4c6758c29df3024d46115af04523333ed620d8e2c85150e87f4b30b2b9b3eb828d91307095e600071102b0caefe53cb882737797a0",
+  "payment_type": "echannel",
+  "order_id": "59993f6981184",
+  "gross_amount": "100000.00",
+  "fraud_status": "accept",
+  "biller_code": "70012",
+  "bill_key": "456247519263"

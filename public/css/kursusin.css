@@ -1,0 +1,226 @@
+body {
+	min-width: 405px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+#content{
+	padding-top: 50px;
+}
+
+a.anchor {
+    display: block;
+    position: relative;
+    top: -100px;
+    visibility: hidden;
+}
+
+.col-md-4.control-label {
+    text-align: left;
+    float: left;
+}
+.col-md-offset-4 {
+    margin-left: 0px;
+}
+.panel-default>.panel-heading {
+    border: none;
+    background-color: #ffffff;
+    font-size: 24px;
+    font-weight: 500;
+}
+.form-group {
+    margin-bottom: 5px;
+}
+.panel-custom{
+	margin-top: 2px;
+	padding: 5px;
+}
+
+.below-navbar-custom{
+	padding-top: 55px;
+}
+
+/* the search bar */
+.sharp-box {
+	border-radius: 0px;
+}
+
+.space {
+	padding: 25px 25px 25px 25px;
+	margin: 0px 30px 0px 30px;
+}
+
+.space-item {
+	padding: 0px 15px 0px 15px;
+	margin: 10px 0px 10px 0px;
+	float: left;
+	position: relative;
+	width: 100%;
+}
+
+.awesomplete-space-item {
+	padding: 0px 15px 0px 15px;
+	margin: 10px 0px 10px 0px;
+}
+
+.parent {
+	position: relative;
+}
+
+.child {
+	position: absolute;
+}
+
+.set-up {
+	top: 15px;
+}
+
+.set-right {
+	right: 15px;
+}
+
+.set-left {
+	left: 15px;
+}
+
+.set-bottom {
+	bottom: 15px;
+}
+
+.margin-up-big {
+	margin-top: -25px;
+}
+
+.margin-up-med {
+	margin-top: -15px;
+}
+
+.margin-up-sml {
+	margin-top: -5px;
+}
+
+.margin-down-big {
+	margin-top: 25px;
+}
+
+.margin-down-med {
+	margin-top: 15px;
+}
+
+.margin-down-sml {
+	margin-top: 5px;
+}
+
+.margin-right-big {
+	margin-left: 25px;
+}
+
+.margin-right-med {
+	margin-left: 15pxl
+}
+
+.margin-right-sml {
+	margin-left: 5px;
+}
+
+.margin-left-big {
+	margin-right: 100px;
+}
+
+.margin-left-med {
+	margin-right: 75px;
+}
+
+.margin-left-sml {
+	margin-right: 5px;
+}
+
+.float-left {
+	float: left;
+}
+
+.float-right {
+	float: right;
+}
+
+.float-normal {
+	float: none;
+}
+
+.width-big {
+	width: 200px;
+}
+
+.width-med {
+	width: 100px;
+}
+
+.width-sml {
+	width: 90px;
+}
+
+.height-big {
+	height: 50px;
+	font-size: 1.2em;
+}
+
+.height-med {
+	height: 30px;
+	font-size: 1em;
+}
+
+.height-sml {
+	height: 25px;
+	font-size: 0.8em;
+}
+
+.horizontal {
+	display: inline-table;
+	vertical-align: middle;
+}
+
+.course h1 {
+	font-size: 1.4em;
+}
+
+.course h2 {
+	font-size: 1.2em;
+}
+
+.course p {
+	font-size: 0.9em;
+}
+
+.course a {
+	text-decoration: none;
+	color: blue;
+}
+
+.red {
+	color: red;
+}
+
+.blue {
+	color: blue;
+}
+
+
+.result-text {
+	text-align: center;
+}
+
+.btn-kursusin {
+	margin: 0.5em;
+    background-color: #0057ff;
+    color: #fff;
+    border-radius: 50px;
+}
+.btn-kursusin:hover {
+	margin: 0.5em;
+    background-color: #fff;
+    color:#0057ff;
+    border-radius: 50px;
+}

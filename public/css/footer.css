@@ -1,0 +1,167 @@
+/*
+.footer-menu{
+	text-align: left;
+	padding-top: 20px;
+}
+
+.footer-menu p{
+	margin: 0;
+}
+
+.col-md-6{
+	width: 100%;
+}
+
+.logo-footer h2{
+	margin-bottom: 10px;
+	margin-top: 0px;
+}
+
+.footer-first {
+	width: 25%;
+	float: left;
+	padding-left: 10px;
+    border: none;
+    height: 150px;
+}
+
+.footer-second,.footer-third,.footer-last-child{
+	width: 25%;
+	float: left;
+	padding-left: 10px;
+    border-left: 1px solid beige;
+    height: 150px;
+}
+
+.footer-site-socmed{
+	margin-top: 10px;
+}
+
+.footer-site-bottom{
+	text-align: left;
+	padding-top: 10px;
+
+
+}
+
+.site-bottom{
+    width: 1170px;
+    margin: auto;
+
+}
+
+.site-bottom p{
+	margin-left: 15px;
+	border-top: 1px solid #eee;
+	padding: 10px;
+	color: #aeaeae;
+}
+
+
+#cartadded{
+	display:none;
+}
+
+.footer-menu{
+	color:  #8f9296;
+	font-size: 14px;
+	margin: 0;
+}
+
+p.footer-links{
+	font-size:18px;
+	font-weight: bold;
+	color:  #ffffff;
+	margin: 0 0 10px;
+	padding: 0;
+}
+
+p.footer-links a{
+	display:inline-block;
+	line-height: 1.8;
+	text-decoration: none;
+	color:  inherit;
+}
+
+.footer-menu p, h1, h2, h4, h5{
+	font-family: Segoe UI,Helvetica,Arial,Sans-Serif;
+	color: #000000;
+}
+
+.footer-menu li{
+	font-family: Segoe UI,Helvetica,Arial,Sans-Serif;
+	color: #000000;
+}
+
+.custom-footer{
+	color: white;
+	background-color: #ffffff;
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+	width: 100%;
+	text-align: center;
+
+}
+
+.list-box{
+	padding: 0;
+	list-style: none;
+}
+*/
+.site-footer-newsletter h2{
+  color : white;
+  font-weight: bold;
+}
+.site-footer-newsletter p{
+  color : white;
+}
+.site-footer-newsletter{
+	background: #2f7495;
+	padding-top: 20px;
+	padding-bottom: 35px;
+	min-height: 20vh;
+}
+.input-newsletter {
+    max-width: 400px;
+    min-width: 380px;
+    padding: 5px;
+}
+
+#input-newsletter {
+  padding: 10px;
+}
+
+.button-newsletter{
+	padding: 6px 1.5em ;
+	background-color: #ff9014;
+	color: #ffffff;
+	text-decoration: none;
+	border: none;
+}
+#upper-footer {
+  text-align: left;
+  padding: 4em 0;
+}
+
+.footer-third a{
+  color: black;
+}
+
+.list-inline{
+  padding-top: 2em;
+}
+
+.list-box {
+  list-style: none;
+  padding: 0;
+}
+
+.btn-social {
+  font-size: 2.5em;
+  padding: 1em;
+  color: black;
+}
+
+.btn-payment{
+  color : black;
+  font-size: 1.5em;
+}

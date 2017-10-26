@@ -13,7 +13,7 @@
     <title>{{ config('app.name', 'Kursusin' ) }}</title>
 
     <!-- Styles -->
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('/vendor/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
     <link href="{{ asset('/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('/js/awesomplete.css')}}" />
 
